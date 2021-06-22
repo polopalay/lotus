@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/lotus/static/css/main.cf850e0a.chunk.css",
+    "main.js": "/lotus/static/js/main.49a64bd4.chunk.js",
+    "main.js.map": "/lotus/static/js/main.49a64bd4.chunk.js.map",
+    "runtime-main.js": "/lotus/static/js/runtime-main.b91c3dba.js",
+    "runtime-main.js.map": "/lotus/static/js/runtime-main.b91c3dba.js.map",
+    "static/css/2.6c8fd51c.chunk.css": "/lotus/static/css/2.6c8fd51c.chunk.css",
+    "static/js/2.5cfa975c.chunk.js": "/lotus/static/js/2.5cfa975c.chunk.js",
+    "static/js/2.5cfa975c.chunk.js.map": "/lotus/static/js/2.5cfa975c.chunk.js.map",
+    "index.html": "/lotus/index.html",
+    "static/css/2.6c8fd51c.chunk.css.map": "/lotus/static/css/2.6c8fd51c.chunk.css.map",
+    "static/css/main.cf850e0a.chunk.css.map": "/lotus/static/css/main.cf850e0a.chunk.css.map",
+    "static/js/2.5cfa975c.chunk.js.LICENSE.txt": "/lotus/static/js/2.5cfa975c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b91c3dba.js",
+    "static/css/2.6c8fd51c.chunk.css",
+    "static/js/2.5cfa975c.chunk.js",
+    "static/css/main.cf850e0a.chunk.css",
+    "static/js/main.49a64bd4.chunk.js"
+  ]
+}
