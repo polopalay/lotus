@@ -4,11 +4,10 @@ import {SettingOutlined, DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import monk from '../../../img/monk.png';
 import buddhist from '../../../img/buddhist.png'
 import {demo} from '../../../firebase/database';
-//import EditorJs from 'react-editor-js';
 import Editor from '../../layout/Editor'
 import Output from 'editorjs-react-renderer';
 
-export default class Home extends Component {
+export default class Post extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {comments: [], comment: {}, editor: {}}
