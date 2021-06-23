@@ -1,8 +1,8 @@
 * {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
   outline: none;
+  box-sizing: border-box;
 }
 
 .app{
@@ -10,6 +10,20 @@
   justify-content: space-between !important;
 }
 
-p {
-word-break: break-all;
+.editor-container{
+  background-color: #f7f7f7;
+  margin: 0 1rem;
+  padding: 0.5rem;
+}
+
+.codex-editor__redactor {
+  padding-bottom: 0 !important;
+}
+
+.ce-settings__default-zone {
+  padding: 0 !important;
+}
+
+.cdx-settings-button {
+margin:0 !important;
 }

@@ -1,23 +1,24 @@
 import React, {Component} from "react";
+import {Link} from 'react-router-dom';
 import {Menu, PageHeader, Dropdown, Avatar, Image} from 'antd';
 import {LogoutOutlined, LoginOutlined} from "@ant-design/icons";
-import {connect} from "react-redux";
-import {signOut} from '../../firebase/auth'
-import {loginWithGoogle} from '../../firebase/auth';
+import {signOut, loginWithGoogle, onUserStateChange} from '../../firebase/auth'
+import lotus from '../../img/lotus.png'
+import user from '../../img/user.png'
 
-class Header extends Component {
+export default class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = {avatar: '/img/user.png', user: null};
+    this.state = {avatar: user, user: null};
   }
 
   componentDidMount() {
-    this.props.app.auth.onAuthStateChanged((user) => {
+    onUserStateChange((user) => {
       if (user != null) {
         this.setState({avatar: user.photoURL, user: user})
       }
       else {
-        this.setState({avatar: '/img/user.png', user: null});
+        this.setState({avatar: user, user: null});
       }
     })
   }
@@ -59,17 +60,7 @@ class Header extends Component {
       </Dropdown>
     );
     return (
-      <PageHeader className="p-0" title={<Image width={45} height={45} src="./img/lotus.png" preview={false} />} subTitle="Online Note" extra={[dropdown]}>
-      </PageHeader>
+      <PageHeader className="p-0" title={<Image width={45} height={45} src={lotus} preview={false} />} subTitle={<Link to='/'>Home</Link>} extra={[dropdown]} />
     );
   }
 }
-
-const mapStateToProps = (store) => {
-  return {
-    app: store.app,
-  };
-};
-
-export default connect(mapStateToProps)(Header);
-

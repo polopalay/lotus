@@ -13,3 +13,11 @@ export function deleteRow(ref, id) {
 export function editRow(ref, id, data) {
     database.ref(ref).child(id).update(data)
 }
+
+export function demo() {
+    //database.ref().child('posts').push({demo: ''}).then(rs=>console.log(rs));
+    //database.ref('posts').once('value', snap => {
+        //if (!snap.exists()) {
+        //}
+    //})
+}
