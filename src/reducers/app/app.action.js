@@ -1,6 +1,6 @@
-export const SetEntity = (data) => {
+export const setUser = (data) => {
     return {
         data: data,
-        type: "SET_ENTITY",
+        type: "SET_USER",
     };
 };

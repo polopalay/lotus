@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Comment, Avatar, Row, Col, List, Button, Card, Image} from 'antd';
-import {SettingOutlined, DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import {SettingOutlined, DeleteOutlined, EditOutlined, SendOutlined} from "@ant-design/icons";
 import monk from '../../../img/monk.png';
 import buddhist from '../../../img/buddhist.png'
 import {demo} from '../../../firebase/database';
@@ -10,7 +10,7 @@ import Output from 'editorjs-react-renderer';
 export default class Post extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {comments: [], comment: {}, editor: {}}
+		this.state = {comments: [], comment: {time: 1624457156027, blocks: [], version: "2.22.0"}, editor: {}}
 	}
 	componentDidMount() {
 		demo()
@@ -28,6 +28,9 @@ export default class Post extends Component {
 				}
 			], comment: {}
 		});
+		this.clear();
+	}
+	clear() {
 		this.state.editor.clear();
 	}
 	handleChange = (data) => {
@@ -35,7 +38,7 @@ export default class Post extends Component {
 	}
 	render() {
 		return (
-			<Row justify="center">
+			<Row justify="center" className='mb-4'>
 				<Col xl={16} lg={18} md={20} sm={22} xs={24}>
 					<Card>
 						<Row>
@@ -67,14 +70,11 @@ export default class Post extends Component {
 							<Col span={22} offset={1}>
 								<Comment avatar={<Avatar src={monk} alt="user" />}
 									content={
-										<Row justify='space-around'>
-											<Col span={20}>
-												<Editor onChange={this.handleChange} initValue={this.state.comment} setEditor={(editor) => this.setState({editor: editor})} />
-											</Col>
-											<Col span={4}>
-												<Button type="primary" onClick={this.submit} >Đăng</Button>
-											</Col>
-										</Row>
+										<Card actions={[
+											<SendOutlined onClick={this.submit} />
+										]}>
+											<Editor onChange={this.handleChange} initValue={this.state.comment} setEditor={(editor) => this.setState({editor: editor})} />
+										</Card>
 									}
 								/>
 							</Col>
