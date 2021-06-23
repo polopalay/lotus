@@ -1,26 +1,62 @@
 import React, {Component} from "react";
 import EditorJs from 'react-editor-js';
+import {Comment, Card, Image} from 'antd';
+import {FileImageOutlined, SendOutlined} from "@ant-design/icons";
 import './editor.css';
 
 export default class Editor extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {value: {}}
+		this.state = {value: {}, editor: {}, images: []}
 	}
 	handleChange = (event) => {
-		if (this.props.onChange) {
-			event.saver.save().then(data => this.props.onChange(data))
-		}
+		event.saver.save().then(data => this.setState({value: data}))
 	}
 	reference = (editor) => {
-		if (this.props.setEditor) {
-			this.props.setEditor(editor);
+		this.setState({editor: editor})
+	}
+	submit = () => {
+		if (this.props.submit) {
+			this.props.submit({comment: this.state.value, images: this.state.images})
+			this.state.editor.clear();
+		}
+	}
+	upload = (event) => {
+		if (this.state.images.length < 9) {
+			let files = event.target.files
+			for (let i = 0; i < files.length; i++) {
+				const fileReader = new FileReader();
+				fileReader.onload = (rs) => {
+					if (this.state.images.length < 9) {
+						let images = this.state.images;
+						images.push({id: Date.now(), src: rs.target.result})
+						this.setState({images: images})
+					}
+				}
+				fileReader.readAsDataURL(files[i]);
+			}
 		}
 	}
 	render() {
+		const user = this.props.user
 		return (
-			<div className='editor-container border'>
-				<EditorJs data={this.props.initValue} onChange={this.handleChange} instanceRef={this.reference} />
-			</div>)
+			<Card
+				actions={[
+					<SendOutlined key='send' onClick={this.submit} />,
+					<FileImageOutlined key='img' onClick={() => document.getElementById('editor-uploader').click()} />,
+				]}
+			>
+				<Comment author={user.displayName} avatar={<Image src={user.photoURL} preview={false} />} />
+				<div className='editor-container border'>
+					<EditorJs onChange={this.handleChange} instanceRef={this.reference} />
+				</div>
+				<Image.PreviewGroup>
+					{
+						this.state.images.map(img => <Image width='25%' src={img.src} />)
+					}
+				</Image.PreviewGroup>
+				<input type="file" id='editor-uploader' accept="image/png, image/gif, image/jpeg" onChange={this.upload} multiple hidden />
+			</Card>
+		)
 	}
 }

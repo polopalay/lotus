@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
 import {Comment, Avatar, Row, Col, List, Button, Card, Image} from 'antd';
 import {SettingOutlined, DeleteOutlined, EditOutlined, SendOutlined} from "@ant-design/icons";
 import monk from '../../../img/monk.png';
@@ -7,15 +8,15 @@ import {demo} from '../../../firebase/database';
 import Editor from '../../layout/Editor'
 import Output from 'editorjs-react-renderer';
 
-export default class Post extends Component {
+class Post extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {comments: [], comment: {time: 1624457156027, blocks: [], version: "2.22.0"}, editor: {}}
+		this.state = {comments: [], comment: {time: 1624457156027, blocks: [], version: "2.22.0"}}
 	}
 	componentDidMount() {
 		demo()
 	}
-	submit = () => {
+	submit = (data) => {
 		this.setState({
 			comments: [
 				...this.state.comments,
@@ -23,35 +24,31 @@ export default class Post extends Component {
 					key: Math.random(),
 					author: 'MacKeNo',
 					avatar: monk,
-					content: <Output data={this.state.comment} />,
+					content: <Output data={data.comment} />,
 					datetime: [<DeleteOutlined />]
 				}
 			], comment: {}
 		});
-		this.clear();
-	}
-	clear() {
-		this.state.editor.clear();
-	}
-	handleChange = (data) => {
-		this.setState({comment: data})
 	}
 	render() {
+		let post = this.props.data
 		return (
 			<Row justify="center" className='mb-4'>
 				<Col xl={16} lg={18} md={20} sm={22} xs={24}>
 					<Card>
 						<Row>
 							<Col span={24} justify="center">
-								<Comment author='MacKeNo' avatar={buddhist} content={<p>Some thing</p>} datetime={<><EditOutlined /> <SettingOutlined /></>} />
-								<Row>
-									<Col span={6}>
-										<Image src={monk} />
-									</Col>
-									<Col span={6}>
-										<Image src={buddhist} />
-									</Col>
-								</Row>
+								<Comment author={post.author} avatar={post.avatar} content={post.content} datetime={<><SettingOutlined /></>} />
+								{
+									//<Row>
+									//<Col span={6}>
+									//<Image src={monk} />
+									//</Col>
+									//<Col span={6}>
+									//<Image src={buddhist} />
+									//</Col>
+									//</Row>
+								}
 							</Col>
 						</Row>
 						<Row>
@@ -68,15 +65,7 @@ export default class Post extends Component {
 						</Row>
 						<Row>
 							<Col span={22} offset={1}>
-								<Comment avatar={<Avatar src={monk} alt="user" />}
-									content={
-										<Card actions={[
-											<SendOutlined onClick={this.submit} />
-										]}>
-											<Editor onChange={this.handleChange} initValue={this.state.comment} setEditor={(editor) => this.setState({editor: editor})} />
-										</Card>
-									}
-								/>
+								<Editor user={this.props.app.user} initValue={this.state.comment} submit={this.submit} />
 							</Col>
 						</Row>
 					</Card>
@@ -85,3 +74,10 @@ export default class Post extends Component {
 		);
 	}
 }
+const mapStateToProps = (store) => {
+	return {
+		app: store.app,
+	};
+};
+export default connect(mapStateToProps)(Post);
+

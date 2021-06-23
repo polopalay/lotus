@@ -2,6 +2,10 @@ import firebase from './firebase'
 
 const database = firebase.database();
 
+export function getRow(ref, action) {
+    database.ref(ref).on('value', rs => action(rs.val()))
+}
+
 export function addRow(ref, data) {
     database.ref(ref).push(data)
 }
@@ -17,7 +21,7 @@ export function editRow(ref, id, data) {
 export function demo() {
     //database.ref().child('posts').push({demo: ''}).then(rs=>console.log(rs));
     //database.ref('posts').once('value', snap => {
-        //if (!snap.exists()) {
-        //}
+    //if (!snap.exists()) {
+    //}
     //})
 }

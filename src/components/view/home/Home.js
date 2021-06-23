@@ -4,7 +4,7 @@ import Posts from "../posts/Posts"
 export default class Home extends Component {
 	render() {
 		return (
-			<Posts />
+			<Posts key={Date.now()} />
 		);
 	}
 }

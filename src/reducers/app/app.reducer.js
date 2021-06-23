@@ -1,5 +1,3 @@
-import firebase from '../../firebase/firebase'
-
 const initialState = {
   user: {}
 };

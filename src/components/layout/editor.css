@@ -1,26 +1,14 @@
 .editor-container{
   background-color: #f7f7f7;
   padding: 5px 10px;
-  /*margin: 0 1rem;*/
-  /*padding: 0.5rem;*/
 }
 
 .codex-editor__redactor {
   padding-bottom: 0 !important;
 }
-
-/*.ce-settings__default-zone {*/
-  /*padding: 0 !important;*/
-/*}*/
-
-/*.cdx-settings-button {*/
-  /*margin:0 !important;*/
-/*}*/
-
 .ce-block__content {
-max-width: 100%;
+  max-width: 100%;
 }
-
-.ce-toolbar__content {
+.ce-toolbar {
   display: none;
-} 
+}
