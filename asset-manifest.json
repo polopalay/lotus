@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/lotus/static/css/main.cf850e0a.chunk.css",
-    "main.js": "/lotus/static/js/main.db123f6f.chunk.js",
-    "main.js.map": "/lotus/static/js/main.db123f6f.chunk.js.map",
-    "runtime-main.js": "/lotus/static/js/runtime-main.b91c3dba.js",
-    "runtime-main.js.map": "/lotus/static/js/runtime-main.b91c3dba.js.map",
-    "static/css/2.6c8fd51c.chunk.css": "/lotus/static/css/2.6c8fd51c.chunk.css",
-    "static/js/2.571df8d4.chunk.js": "/lotus/static/js/2.571df8d4.chunk.js",
-    "static/js/2.571df8d4.chunk.js.map": "/lotus/static/js/2.571df8d4.chunk.js.map",
+    "main.css": "/lotus/static/css/main.383373a4.chunk.css",
+    "main.js": "/lotus/static/js/main.c5a70bce.chunk.js",
+    "main.js.map": "/lotus/static/js/main.c5a70bce.chunk.js.map",
+    "runtime-main.js": "/lotus/static/js/runtime-main.eddc83e2.js",
+    "runtime-main.js.map": "/lotus/static/js/runtime-main.eddc83e2.js.map",
+    "static/css/2.b4e56faa.chunk.css": "/lotus/static/css/2.b4e56faa.chunk.css",
+    "static/js/2.0c9779d6.chunk.js": "/lotus/static/js/2.0c9779d6.chunk.js",
+    "static/js/2.0c9779d6.chunk.js.map": "/lotus/static/js/2.0c9779d6.chunk.js.map",
     "index.html": "/lotus/index.html",
-    "static/css/2.6c8fd51c.chunk.css.map": "/lotus/static/css/2.6c8fd51c.chunk.css.map",
-    "static/css/main.cf850e0a.chunk.css.map": "/lotus/static/css/main.cf850e0a.chunk.css.map",
-    "static/js/2.571df8d4.chunk.js.LICENSE.txt": "/lotus/static/js/2.571df8d4.chunk.js.LICENSE.txt",
+    "static/css/2.b4e56faa.chunk.css.map": "/lotus/static/css/2.b4e56faa.chunk.css.map",
+    "static/css/main.383373a4.chunk.css.map": "/lotus/static/css/main.383373a4.chunk.css.map",
+    "static/js/2.0c9779d6.chunk.js.LICENSE.txt": "/lotus/static/js/2.0c9779d6.chunk.js.LICENSE.txt",
     "static/media/buddhist.75efac36.png": "/lotus/static/media/buddhist.75efac36.png",
     "static/media/lotus.3d5db4fb.png": "/lotus/static/media/lotus.3d5db4fb.png",
     "static/media/monk.28981645.png": "/lotus/static/media/monk.28981645.png",
     "static/media/user.b326dd92.png": "/lotus/static/media/user.b326dd92.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.b91c3dba.js",
-    "static/css/2.6c8fd51c.chunk.css",
-    "static/js/2.571df8d4.chunk.js",
-    "static/css/main.cf850e0a.chunk.css",
-    "static/js/main.db123f6f.chunk.js"
+    "static/js/runtime-main.eddc83e2.js",
+    "static/css/2.b4e56faa.chunk.css",
+    "static/js/2.0c9779d6.chunk.js",
+    "static/css/main.383373a4.chunk.css",
+    "static/js/main.c5a70bce.chunk.js"
   ]
 }
