@@ -6,11 +6,11 @@ import {onUserStateChange} from './firebase/auth'
 import {setUser} from './reducers/app/app.action'
 import {Provider} from "react-redux";
 import {Layout} from 'antd';
-import Header from './components/header/Header';
-import Footer from './components/footer/Footer'
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer'
 import Protected from './components/view/Protected'
-import Login from './components/authentication/Login'
-import Logout from './components/authentication/Logout'
+import Login from './components/view/user/Login'
+import Logout from './components/view/user/Logout'
 import AccessDenied from './components/view/AccessDenied'
 import store from './store';
 

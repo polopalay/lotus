@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {signOut} from '../../firebase/auth';
+import {signOut} from '../../../firebase/auth';
 
 export default class Logout extends Component {
 	constructor(props) {

@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {loginWithGoogle} from '../../firebase/auth';
+import {loginWithGoogle} from '../../../firebase/auth';
 
 export default class Login extends Component {
 	constructor(props) {
