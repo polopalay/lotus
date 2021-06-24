@@ -8,7 +8,8 @@ import {Provider} from "react-redux";
 import {Layout} from 'antd';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer'
-import Routing from './components/view/Routing'
+import Protected from './components/view/Protected'
+import AccessDenied from './components/view/AccessDenied'
 import store from './store';
 
 class App extends Component {
@@ -27,7 +28,10 @@ class App extends Component {
 							<Header />
 						</Layout.Header>
 						<Layout.Content className="p-3">
-							<Routing />
+							<Switch>
+								<Route path='/acessDenied' component={AccessDenied} />
+								<Route path="/" component={Protected} />
+							</Switch>
 						</Layout.Content>
 						<Layout.Footer style={{textAlign: 'center'}}>
 							<Footer />

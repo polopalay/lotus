@@ -14,9 +14,7 @@ class Routing extends Component {
 		}
 		else {
 			return (
-				<Switch>
 					<Route key='home' exact path='/' component={Home} />
-				</Switch>
 			);
 		}
 	}
