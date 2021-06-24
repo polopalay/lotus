@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/lotus/static/css/main.d11a65be.chunk.css",
-    "main.js": "/lotus/static/js/main.7d0c6def.chunk.js",
-    "main.js.map": "/lotus/static/js/main.7d0c6def.chunk.js.map",
+    "main.js": "/lotus/static/js/main.3e107d1a.chunk.js",
+    "main.js.map": "/lotus/static/js/main.3e107d1a.chunk.js.map",
     "runtime-main.js": "/lotus/static/js/runtime-main.eddc83e2.js",
     "runtime-main.js.map": "/lotus/static/js/runtime-main.eddc83e2.js.map",
     "static/css/2.b4e56faa.chunk.css": "/lotus/static/css/2.b4e56faa.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.b4e56faa.chunk.css",
     "static/js/2.d6be7256.chunk.js",
     "static/css/main.d11a65be.chunk.css",
-    "static/js/main.7d0c6def.chunk.js"
+    "static/js/main.3e107d1a.chunk.js"
   ]
 }
