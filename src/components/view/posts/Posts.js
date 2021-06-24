@@ -42,7 +42,6 @@ class Posts extends Component {
 		})
 	}
 	render() {
-		console.log(this.props)
 		return (
 			<>
 				<Row justify='center' className='mb-4'>

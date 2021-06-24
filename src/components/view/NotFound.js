@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Link} from 'react-router-dom'
 import {Result, Button} from 'antd'
 
 export default class NotFound extends Component {
@@ -6,8 +7,8 @@ export default class NotFound extends Component {
       return <Result
          status="404"
          title="404"
-         subTitle="Sorry, the page you visited does not exist."
-         extra={<Button type="primary">Back Home</Button>}
+         subTitle="Không tìm thấy trang yêu cầu!"
+         extra={<Button type='primary'><Link to="/">Về trang chủ</Link></Button>}
       />
    }
 }

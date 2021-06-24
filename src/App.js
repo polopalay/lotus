@@ -9,6 +9,8 @@ import {Layout} from 'antd';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer'
 import Protected from './components/view/Protected'
+import Login from './components/authentication/Login'
+import Logout from './components/authentication/Logout'
 import AccessDenied from './components/view/AccessDenied'
 import store from './store';
 
@@ -29,7 +31,9 @@ class App extends Component {
 						</Layout.Header>
 						<Layout.Content className="p-3">
 							<Switch>
-								<Route path='/acessDenied' component={AccessDenied} />
+								<Route exact path='/login' component={Login} />
+								<Route exact path='/logout' component={Logout} />
+								<Route exact path='/acessDenied' component={AccessDenied} />
 								<Route path="/" component={Protected} />
 							</Switch>
 						</Layout.Content>

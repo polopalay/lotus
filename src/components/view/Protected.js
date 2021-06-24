@@ -5,11 +5,7 @@ import NotFound from './NotFound';
 import Posts from './posts/Posts'
 
 class Routing extends Component {
-	constructor(props) {
-		super(props);
-	}
 	render() {
-		console.log(this.props.app.user)
 		return this.props.app.user==null? <Redirect to="/acessDenied" />:<Switch>
 			<Route exact path='/' component={Posts} />
 			<Route component={NotFound} />

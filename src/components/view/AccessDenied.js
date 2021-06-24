@@ -1,8 +1,16 @@
 import React, {Component} from "react";
-import {Empty} from 'antd';
+import {Redirect} from "react-router-dom";
+import {connect} from "react-redux";
+import {Result} from 'antd';
 
-export default class AccessDenied extends Component {
+class AccessDenied extends Component {
 	render() {
-		return <Empty />;
+		return this.props.app.user == null ? <Result status="403" title="403" subTitle="Bạn chưa đăng nhập!" /> : <Redirect to='/' />;
 	}
 }
+const mapStateToProps = (store) => {
+	return {
+		app: store.app,
+	};
+};
+export default connect(mapStateToProps)(AccessDenied);
