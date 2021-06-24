@@ -19,6 +19,7 @@ export default class Editor extends Component {
 		if (this.props.submit) {
 			this.props.submit({comment: this.state.value, images: this.state.images})
 			this.state.editor.clear();
+			this.setState({images: []})
 		}
 	}
 	upload = (event) => {
@@ -30,6 +31,15 @@ export default class Editor extends Component {
 					if (this.state.images.length < 9) {
 						let images = this.state.images;
 						images.push({id: Date.now(), src: rs.target.result})
+						images.forEach(img => {
+							if (images.length == 1) {
+								img.size = '100%'
+							} else if (images.length > 1 && images.length <= 4) {
+								img.size = '50%'
+							} else if (images.length > 4) {
+								img.size = '33.33%'
+							}
+						})
 						this.setState({images: images})
 					}
 				}
@@ -52,7 +62,7 @@ export default class Editor extends Component {
 				</div>
 				<Image.PreviewGroup>
 					{
-						this.state.images.map(img => <Image width='25%' src={img.src} />)
+						this.state.images.map(img => <Image width={img.size} src={img.src} />)
 					}
 				</Image.PreviewGroup>
 				<input type="file" id='editor-uploader' accept="image/png, image/gif, image/jpeg" onChange={this.upload} multiple hidden />

@@ -20,3 +20,7 @@ export function uploadFileFromString(path, string, action) {
         }
     })
 }
+
+export function deleteFile(path) {
+    storage.ref(path).delete().catch(error => console.log(error));
+}

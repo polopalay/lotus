@@ -1,47 +1,72 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {Row, Col, Image} from 'antd';
+import {Row, Col, Image, List} from 'antd';
+import {DownOutlined} from "@ant-design/icons";
 import Post from './Post';
 import Editor from '../../layout/Editor'
 import {uploadFileFromString} from '../../../firebase/storage';
-import {getRow, addRow} from '../../../firebase/database'
+import {getRow, getRowFromLast, addRow} from '../../../firebase/database'
 import Output from 'editorjs-react-renderer';
 
 class Posts extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {posts: []}
+		this.state = {posts: [], number: 5}
 	}
 	componentDidMount() {
-		getRow('/posts/', rs => {
+		this.load()
+	}
+	loadMore = () => {
+		this.setState({number: this.state.number + 1})
+		this.load();
+	}
+	load() {
+		getRowFromLast('/posts/', this.state.number, rs => {
 			let data = [];
 			for (let key in rs) {
-				console.log(rs);
+				let images = []
+				let post = rs[key]
+				let imgs = rs[key].images
+				if (imgs) {
+					for (let keyImg in imgs) {
+						images.push(imgs[keyImg])
+					}
+				}
+				images.forEach(img => {
+					if (images.length == 1) {
+						img.size = '100%'
+					} else if (images.length > 1 && images.length <= 4) {
+						img.size = '50%'
+					} else if (images.length > 4) {
+						img.size = '33.33%'
+					}
+				})
 				let map = {
 					key: key,
-					author: rs[key].author,
-					avatar: rs[key].avatar,
-					content: <Output data={rs[key].content} />,
+					userId: post.userId,
+					author: post.author,
+					avatar: post.avatar,
+					content: <Output data={post.content} />,
+					images: images
 				}
-				data.push(map);
+				data.unshift(map);
 			}
 			this.setState({posts: data})
 		})
 	}
 	submit = (data) => {
-		//console.log(data.images);
-		//data.images.forEach(img => {
-		//uploadFileFromString(`/image/${img.id}.png`, img.src, (data) => console.log(data))
-		//})
 		let post =
 		{
 			userId: this.props.app.user.uid,
 			author: this.props.app.user.displayName,
 			avatar: this.props.app.user.photoURL,
 			content: data.comment,
-			images: data.images
 		}
-		addRow('/posts/', post)
+		let key = addRow('/posts/', post)
+		data.images.forEach(img => {
+			let link = `/image-posts/${img.id}.png`
+			uploadFileFromString(link, img.src, (data) => addRow(`/posts/${key}/images/`, {src: link, link: data}))
+		})
 	}
 	render() {
 		return (
@@ -51,9 +76,9 @@ class Posts extends Component {
 						<Editor user={this.props.app.user} initValue={this.state.comment} submit={this.submit} />
 					</Col>
 				</Row>
-				{this.state.posts.map(item =>
-					<Post key={item.key} data={item} />
-				)}
+				<List dataSource={this.state.posts}
+					loadMore={<Row align='center'><Col><DownOutlined onClick={this.loadMore} /></Col></Row>}
+					renderItem={item => <Post key={item.key} data={item} />} />
 			</>);
 	}
 }
