@@ -24,9 +24,5 @@ export function editRow(ref, id, data) {
 }
 
 export function demo() {
-    //database.ref().child('posts').push({demo: ''}).then(rs=>console.log(rs));
-    //database.ref('posts').once('value', snap => {
-    //if (!snap.exists()) {
-    //}
-    //})
+    database.ref('/posts/')
 }

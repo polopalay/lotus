@@ -26,7 +26,7 @@ class App extends Component {
 			<Provider store={store}>
 				<HashRouter>
 					<Layout className="app">
-						<Layout.Header style={{backgroundColor: "white"}}>
+						<Layout.Header className="px-3" style={{backgroundColor: "white"}}>
 							<Header />
 						</Layout.Header>
 						<Layout.Content className="p-3">

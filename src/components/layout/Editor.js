@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import EditorJs from 'react-editor-js';
-import {Comment, Card, Image} from 'antd';
+import {Comment, Card, Image, Row, Col} from 'antd';
 import {FileImageOutlined, SendOutlined} from "@ant-design/icons";
 import './editor.css';
 
@@ -58,14 +58,18 @@ export default class Editor extends Component {
 				]}
 			>
 				<Comment author={user.displayName} avatar={<Image src={user.photoURL} preview={false} />} />
-				<div className='editor-container border'>
+				<div className='editor-container border mb-2'>
 					<EditorJs onChange={this.handleChange} instanceRef={this.reference} />
 				</div>
-				<Image.PreviewGroup>
-					{
-						this.state.images.map(img => <Image width={img.size} src={img.src} />)
-					}
-				</Image.PreviewGroup>
+				<Row justify='center'>
+					<Col span={12}>
+						<Image.PreviewGroup>
+							{
+								this.state.images.map(img => <Image width={img.size} src={img.src} />)
+							}
+						</Image.PreviewGroup>
+					</Col>
+				</Row>
 				<input type="file" id={`uploader${this.props.id}`} accept="image/png, image/gif, image/jpeg" onChange={this.upload} hidden />
 			</Card>
 		)
