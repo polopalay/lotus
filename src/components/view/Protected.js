@@ -9,6 +9,7 @@ class Routing extends Component {
 	render() {
 		return this.props.app.user == null ? <Redirect to="/acessDenied" /> : <Switch>
 			<Route exact path='/' component={Posts} />
+			<Route exact path='/user/:uid' component={Posts} />
 			<Route exact path='/setting' component={Setting} />
 			<Route component={NotFound} />
 		</Switch>

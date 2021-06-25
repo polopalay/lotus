@@ -11,6 +11,10 @@ export function getRowFromFirst(ref, number, action) {
 export function getRowFromLast(ref, number, action) {
     database.ref(ref).limitToLast(number).on('value', rs => action(rs.val()))
 }
+export function getRowByUserId(ref, id, action) {
+    //database.ref(ref).orderByChild('userId').equalTo(id).on('value', rs => action(rs.val()))
+    database.ref(ref).orderByChild('userId').equalTo(id).on('value', rs => action && action(rs.val()))
+}
 export function addRow(ref, data) {
     return database.ref(ref).push(data).key
 }
@@ -18,11 +22,6 @@ export function addRow(ref, data) {
 export function deleteRow(ref, id) {
     database.ref(ref).child(id).remove()
 }
-
 export function editRow(ref, id, data) {
     database.ref(ref).child(id).update(data)
-}
-
-export function demo() {
-    database.ref('/posts/')
 }

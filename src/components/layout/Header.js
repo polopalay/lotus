@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import {Menu, PageHeader, Dropdown, Avatar, Image, Typography} from 'antd';
-import {SettingOutlined, LogoutOutlined, LoginOutlined} from "@ant-design/icons";
+import {SettingOutlined, LogoutOutlined, LoginOutlined,HomeOutlined} from "@ant-design/icons";
 import lotus from '../../img/lotus.png'
 import userImg from '../../img/user.png'
 
@@ -19,6 +19,9 @@ class Header extends Component {
       <Menu>
         {this.props.app.user ?
           <>
+            <Menu.Item icon={<HomeOutlined />} key="menu-setting">
+              <Link to={`/user/${this.props.app.user.uid}`}>Trang cá nhân</Link>
+            </Menu.Item>
             <Menu.Item icon={<SettingOutlined />} key="menu-setting">
               <Link to='/setting'>Cài Đặt</Link>
             </Menu.Item>

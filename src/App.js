@@ -7,7 +7,6 @@ import {setUser} from './reducers/app/app.action'
 import {Provider} from "react-redux";
 import {Layout} from 'antd';
 import Header from './components/layout/Header';
-import Footer from './components/layout/Footer'
 import Protected from './components/view/Protected'
 import Login from './components/view/user/Login'
 import Logout from './components/view/user/Logout'
@@ -37,9 +36,6 @@ class App extends Component {
 								<Route path="/" component={Protected} />
 							</Switch>
 						</Layout.Content>
-						<Layout.Footer style={{textAlign: 'center'}}>
-							<Footer />
-						</Layout.Footer>
 					</Layout>
 				</HashRouter>
 			</Provider>);

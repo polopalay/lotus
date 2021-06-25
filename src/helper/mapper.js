@@ -1,4 +1,7 @@
 import Output from 'editorjs-react-renderer';
+import {Link} from 'react-router-dom'
+import {Image, Avatar} from 'antd'
+
 export function mapData(data) {
 	let dataset = []
 	for (let key in data) {
@@ -25,7 +28,7 @@ export function mapData(data) {
 			key: key,
 			uid: item.userId,
 			author: item.author,
-			avatar: item.avatar,
+			avatar: <Link to={`/user/${item.userId}`}><Avatar icon={<Image src={item.avatar} preview={false} />} /></Link>,
 			content: <Output data={item.content} />,
 			images: images
 		}
