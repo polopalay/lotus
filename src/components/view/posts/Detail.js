@@ -16,7 +16,9 @@ class Detail extends Component {
   componentDidMount() {
     let id = this.props.match.params.id
     getRow(`/posts/${id}`, rs => {
-      this.setState({loading: false, post: mapOne(rs, id)})
+      if (rs) {
+        this.setState({loading: false, post: mapOne(rs, id)})
+      }
     })
     getRowByParrentId('/comments/', 'postId', id, rs => {
       this.setState({comments: mapData(rs)})
@@ -29,11 +31,12 @@ class Detail extends Component {
       author: this.props.app.user.displayName,
       avatar: this.props.app.user.photoURL,
       content: data.comment,
+      date:new Date().toDateString()
     }
     let key = addRow('/comments/', comment)
     data.images.forEach(img => {
       let link = `/image-comments/${img.id}.png`
-      uploadFileFromString(link, img.src, (data) => addRow(`/posts/${this.props.data.key}/comments/${key}/images/`, {src: link, link: data}))
+      uploadFileFromString(link, img.src, (data) => addRow(`/comments/${key}/images/`, {src: link, link: data}))
     })
   }
   delete = () => {
@@ -44,10 +47,9 @@ class Detail extends Component {
       message.info('Xoá thành công');
     });
   }
-  deleteComment(id) {
-    let images = this.props.data.images;
+  deleteComment(id, images) {
     images.forEach(image => deleteFile(image.src))
-    deleteRow(`/posts/${this.props.data.key}/comments/`, id);
+    deleteRow(`/comments/`, id);
     message.info('Xoá thành công');
   }
   render() {
@@ -83,7 +85,7 @@ class Detail extends Component {
                         return <List.Item key={Math.random()}>
                           <Col span={24} justify="center">
                             <Comment {...props} datetime={canDelete &&
-                              <Popconfirm title="Bạn có muốn xoá bài viết này không?" onConfirm={() => this.deleteComment(props.key)} okText="Có" cancelText="Không" >
+                              <Popconfirm title="Bạn có muốn xoá bài viết này không?" onConfirm={() => this.deleteComment(props.key, props.images)} okText="Có" cancelText="Không" >
                                 <DeleteOutlined />
                               </Popconfirm>
                             } />

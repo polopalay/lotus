@@ -34,8 +34,10 @@ export function mapOne(item, key) {
 export function mapData(data) {
 	let dataset = []
 	for (let key in data) {
-		let map = mapOne(data[key], key);
-		dataset.unshift(map);
+		if (data[key]) {
+			let map = mapOne(data[key], key);
+			dataset.unshift(map);
+		}
 	}
 	return dataset;
 }

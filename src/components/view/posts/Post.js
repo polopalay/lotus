@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import {Comment, Row, Col, Card, Image, Popconfirm, message} from 'antd';
 import {DeleteOutlined, CommentOutlined, FireOutlined} from "@ant-design/icons";
-import {deleteRow} from '../../../firebase/database'
+import {getRowByParrentId, deleteRow} from '../../../firebase/database'
 import {deleteFile} from '../../../firebase/storage';
 
 class Post extends Component {
@@ -12,9 +12,15 @@ class Post extends Component {
     this.state = {comments: [], comment: {time: 1624457156027, blocks: [], version: "2.22.0"}}
   }
   delete = () => {
-    deleteRow('/posts/', this.props.data.key, rs => {
+    let parrentId = this.props.data.key
+    deleteRow('/posts/', parrentId, () => {
       let images = this.props.data.images;
       images.forEach(image => deleteFile(image.src))
+      getRowByParrentId('/comments/', 'postId', parrentId, rs => {
+        for (let key in rs) {
+          deleteRow('/comments/', key)
+        }
+      })
       this.props.load()
       message.info('Xoá thành công');
     });
@@ -28,17 +34,18 @@ class Post extends Component {
           <Card actions={[]}>
             <Row>
               <Col span={24} justify="center">
-                <Comment author={post.author} avatar={post.avatar} content={post.content} datetime={post.date} actions={[
-                  <FireOutlined className='action-icon'/>,
-                  <Link to={`/detail/${post.key}`}><CommentOutlined className='action-icon'/></Link>,
-                  <>
-                    {isWriter &&
-                      <Popconfirm title="Bạn có muốn xoá bài viết này không?" onConfirm={this.delete} okText="Có" cancelText="Không" >
-                        <DeleteOutlined className='action-icon'/>
-                      </Popconfirm>
-                    }
-                  </>,
-                ]} />
+                <Comment author={<p className='author-name'>{post.author}</p>} avatar={post.avatar}
+                  content={post.content} datetime={post.date} actions={[
+                    <FireOutlined className='action-icon' />,
+                    <Link to={`/detail/${post.key}`}><CommentOutlined className='action-icon' /></Link>,
+                    <>
+                      {isWriter &&
+                        <Popconfirm title="Bạn có muốn xoá bài viết này không?" onConfirm={this.delete} okText="Có" cancelText="Không" >
+                          <DeleteOutlined className='action-icon' />
+                        </Popconfirm>
+                      }
+                    </>,
+                  ]} />
                 <Row justify='center'>
                   <Col span={12}>
                     <Image.PreviewGroup>

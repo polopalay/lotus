@@ -53,11 +53,11 @@ export default class Editor extends Component {
 		return (
 			<Card
 				actions={[
-					<SendOutlined key='send' onClick={this.submit} />,
-					<FileImageOutlined key='img' onClick={() => document.getElementById(`uploader${this.props.id}`).click()} />,
+					<SendOutlined key='send' onClick={this.submit} className='action-icon' />,
+					<FileImageOutlined key='img' onClick={() => document.getElementById(`uploader${this.props.id}`).click()} className='action-icon' />,
 				]}
 			>
-				<Comment author={user.displayName} avatar={<Image src={user.photoURL} preview={false} />} />
+				<Comment author={<p className='author-name'>{user.displayName}</p>} avatar={<Image src={user.photoURL} preview={false} />} />
 				<div className='editor-container border mb-2'>
 					<EditorJs onChange={this.handleChange} instanceRef={this.reference} />
 				</div>
