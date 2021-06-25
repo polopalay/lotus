@@ -5,7 +5,7 @@ import {HashRouter, Route, Switch} from "react-router-dom";
 import {onUserStateChange} from './firebase/auth'
 import {setUser} from './reducers/app/app.action'
 import {Provider} from "react-redux";
-import {Layout} from 'antd';
+import {Layout, BackTop} from 'antd';
 import Header from './components/layout/Header';
 import Protected from './components/view/Protected'
 import Login from './components/view/user/Login'
@@ -23,6 +23,7 @@ class App extends Component {
 	render() {
 		return (
 			<Provider store={store}>
+				<BackTop>Up</BackTop>
 				<HashRouter>
 					<Layout className="app">
 						<Layout.Header className="px-3" style={{backgroundColor: "white"}}>

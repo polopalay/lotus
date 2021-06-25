@@ -5,11 +5,7 @@ import {DownOutlined} from "@ant-design/icons";
 import Post from "./Post";
 import Editor from "../../layout/Editor";
 import {uploadFileFromString} from "../../../firebase/storage";
-import {
-  getRowFromLast,
-  addRow,
-  getRowByUserId,
-} from "../../../firebase/database";
+import {getRowFromLast, addRow, getRowByUserId, getRowFromLastOneTime, getRowByUserIdOneTime} from "../../../firebase/database";
 import {mapData} from "../../../helper/mapper";
 
 class Posts extends Component {
@@ -20,7 +16,7 @@ class Posts extends Component {
   componentDidMount() {
     this.load();
   }
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.match.params.uid !== this.props.match.params.uid) {
       this.load();
     }
@@ -29,42 +25,42 @@ class Posts extends Component {
     this.setState({number: this.state.number + 5});
     this.load();
   };
-  load() {
+  load = () => {
     if (this.props.match.params.uid) {
-      getRowByUserId("/posts/", this.props.match.params.uid, (rs) => {
-        this.setData(rs);
+      getRowByUserIdOneTime("/posts/", this.props.match.params.uid, (rs) => {
+        this.setState({posts: mapData(rs)})
       });
     } else {
-      getRowFromLast("/posts/", this.state.number, (rs) => {
-        this.setData(rs);
+      getRowFromLastOneTime("/posts/", this.state.number, (rs) => {
+        this.setState({posts: mapData(rs)})
       });
     }
   }
-  setData = (rs) => {
-    let dataset = mapData(rs);
-    dataset.forEach((item) => (item.comments = mapData(rs[item.key].comments)));
-    this.setState({posts: dataset});
-  };
   submit = (data) => {
     let post = {
       userId: this.props.app.user.uid,
       author: this.props.app.user.displayName,
       avatar: this.props.app.user.photoURL,
       content: data.comment,
+      date: new Date().toDateString()
     };
-    let key = addRow("/posts/", post);
-    data.images.forEach((img) => {
-      let link = `/image-posts/${img.id}.png`;
-      uploadFileFromString(link, img.src, (data) =>
-        addRow(`/posts/${key}/images/`, {src: link, link: data})
-      );
+    let key = addRow("/posts/", post, () => {
+      this.load();
+      data.images.forEach((img) => {
+        let link = `/image-posts/${img.id}.png`;
+        uploadFileFromString(link, img.src, (data) => {
+          addRow(`/posts/${key}/images/`, {src: link, link: data})
+          this.load();
+        }
+        );
+      });
     });
   };
   render() {
     return (
       <>
         <Row justify="center" className="mb-4">
-          <Col xl={12} lg={14} md={16} sm={18} xs={20}>
+          <Col xl={10} lg={14} md={18} sm={22} xs={24}>
             <Editor
               key={Math.random()}
               user={this.props.app.user}
@@ -82,7 +78,7 @@ class Posts extends Component {
               </Col>
             </Row>
           }
-          renderItem={(item) => <Post key={item.key} data={item} />}
+          renderItem={(item) => <Post key={item.key} data={item} load={this.load} />}
         />
       </>
     );

@@ -27,7 +27,7 @@ class Setting extends Component {
       <Row justify='center'>
         <Col>
           <Tabs defaultActiveKey="1" centered>
-            <Tabs.TabPane tab="Tab 1" key="1">
+            <Tabs.TabPane tab="Đổi tên người dùng" key="1">
               <Card style={{width: 300, background: 'none'}}>
                 <Form size='middle' onFinish={this.finish}>
                   <Form.Item name="username">
@@ -40,7 +40,7 @@ class Setting extends Component {
                 </Form>
               </Card>
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Tab 2" key="2">
+            <Tabs.TabPane tab="Đổi ảnh đại diện" key="2">
               <Card style={{width: 300, background: 'none'}}>
                 <Row justify='center'>
                   <Col>
