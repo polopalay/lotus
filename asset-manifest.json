@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/lotus/static/css/main.83264505.chunk.css",
+    "main.css": "/lotus/static/css/main.c05cc6ac.chunk.css",
     "main.js": "/lotus/static/js/main.37d7b231.chunk.js",
     "main.js.map": "/lotus/static/js/main.37d7b231.chunk.js.map",
     "runtime-main.js": "/lotus/static/js/runtime-main.eddc83e2.js",
@@ -10,7 +10,7 @@
     "static/js/2.e4e6d831.chunk.js.map": "/lotus/static/js/2.e4e6d831.chunk.js.map",
     "index.html": "/lotus/index.html",
     "static/css/2.b4e56faa.chunk.css.map": "/lotus/static/css/2.b4e56faa.chunk.css.map",
-    "static/css/main.83264505.chunk.css.map": "/lotus/static/css/main.83264505.chunk.css.map",
+    "static/css/main.c05cc6ac.chunk.css.map": "/lotus/static/css/main.c05cc6ac.chunk.css.map",
     "static/js/2.e4e6d831.chunk.js.LICENSE.txt": "/lotus/static/js/2.e4e6d831.chunk.js.LICENSE.txt",
     "static/media/lotus.3d5db4fb.png": "/lotus/static/media/lotus.3d5db4fb.png",
     "static/media/user.b326dd92.png": "/lotus/static/media/user.b326dd92.png"
@@ -19,7 +19,7 @@
     "static/js/runtime-main.eddc83e2.js",
     "static/css/2.b4e56faa.chunk.css",
     "static/js/2.e4e6d831.chunk.js",
-    "static/css/main.83264505.chunk.css",
+    "static/css/main.c05cc6ac.chunk.css",
     "static/js/main.37d7b231.chunk.js"
   ]
 }
