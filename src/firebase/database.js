@@ -2,6 +2,10 @@ import 'firebase/database';
 import firebase from './firebase'
 
 const database = firebase.database();
+
+export function getRowOneTime(ref, action) {
+    database.ref(ref).once('value').then(rs => action(rs.val()))
+}
 export function getRow(ref, action) {
     database.ref(ref).on('value', rs => action(rs.val()))
 }
@@ -14,14 +18,14 @@ export function getRowFromFirst(ref, number, action) {
 export function getRowFromLast(ref, number, action) {
     database.ref(ref).limitToLast(number).on('value', rs => action(rs.val()))
 }
+export function getRowByParrentIdFromLastOneTime(ref, number, name, id, action) {
+    database.ref(ref).orderByChild(name).equalTo(id).limitToLast(number).once('value').then(rs => action && action(rs.val()))
+}
+export function getRowByParrentIdOneTime(ref, name, id, action) {
+    database.ref(ref).orderByChild(name).equalTo(id).once('value').then(rs => action && action(rs.val()))
+}
 export function getRowByParrentId(ref, name, id, action) {
     database.ref(ref).orderByChild(name).equalTo(id).on('value', rs => action && action(rs.val()))
-}
-export function getRowByUserIdOneTime(ref, id, action) {
-    database.ref(ref).orderByChild('userId').equalTo(id).once('value').then(rs => action && action(rs.val()))
-}
-export function getRowByUserId(ref, id, action) {
-    database.ref(ref).orderByChild('userId').equalTo(id).on('value', rs => action && action(rs.val()))
 }
 export function addRow(ref, data, action) {
     let rs = database.ref(ref).push(data)

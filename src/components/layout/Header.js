@@ -52,7 +52,7 @@ class Header extends Component {
     );
     return (
       <PageHeader className="p-0 m-0" title={<Image width={45} height={45} src={lotus} preview={false} />}
-        subTitle={<Typography.Text strong><Link style={{color: '#ff4d4f'}} to='/'>Home</Link></Typography.Text>}
+        subTitle={<Typography.Text strong><Link className='text-volcano' to='/'>Home</Link></Typography.Text>}
         extra={[<Typography.Text strong>{username}</Typography.Text>,
           dropdown]} />
     );

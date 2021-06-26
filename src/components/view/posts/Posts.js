@@ -5,8 +5,7 @@ import {DownOutlined} from "@ant-design/icons";
 import Post from "./Post";
 import Editor from "../../tool/Editor";
 import {uploadFileFromString} from "../../../firebase/storage";
-import {addRow, getRowFromLastOneTime, getRowByUserIdOneTime} from "../../../firebase/database";
-import {mapData} from "../../../helper/mapper";
+import {addRow, getRowFromLastOneTime, getRowByParrentIdFromLastOneTime} from "../../../firebase/database";
 
 class Posts extends Component {
   constructor(props) {
@@ -27,14 +26,21 @@ class Posts extends Component {
   };
   load = () => {
     if (this.props.match.params.uid) {
-      getRowByUserIdOneTime("/posts/", this.props.match.params.uid, (rs) => {
-        this.setState({posts: mapData(rs)})
+      getRowByParrentIdFromLastOneTime("/posts/", this.state.number, 'userId', this.props.match.params.uid, (rs) => {
+        this.setState({posts: this.posts(rs)})
       });
     } else {
       getRowFromLastOneTime("/posts/", this.state.number, (rs) => {
-        this.setState({posts: mapData(rs)})
+        this.setState({posts: this.posts(rs)})
       });
     }
+  }
+  posts = (data) => {
+    let keys = []
+    for (let key in data) {
+      keys.unshift(key)
+    }
+    return keys;
   }
   submit = (data) => {
     let post = {
@@ -61,24 +67,13 @@ class Posts extends Component {
       <>
         <Row justify="center" className="mb-4">
           <Col xl={10} lg={14} md={18} sm={22} xs={24}>
-            <Editor
-              key={Math.random()}
-              user={this.props.app.user}
-              initValue={this.state.comment}
-              submit={this.submit}
-            />
+            <Editor key={Math.random()} user={this.props.app.user} initValue={this.state.comment} submit={this.submit} />
           </Col>
         </Row>
         <List
           dataSource={this.state.posts}
-          loadMore={
-            <Row align="center">
-              <Col>
-                <DownOutlined onClick={this.loadMore} />
-              </Col>
-            </Row>
-          }
-          renderItem={(item) => <Post key={item.key} data={item} load={this.load} />}
+          loadMore={<Row align="center"><Col><DownOutlined onClick={this.loadMore} /></Col></Row>}
+          renderItem={(item) => <Post key={item} data={item} load={this.load} />}
         />
       </>
     );

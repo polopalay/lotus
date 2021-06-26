@@ -12,6 +12,13 @@ export function mapOne(item, key) {
 			images.push(img)
 		}
 	}
+	let likes = []
+	let lks = item.likes;
+	if (lks) {
+		for (let keyLike in lks) {
+			likes.push(lks[keyLike].uid);
+		}
+	}
 	return {
 		key: key,
 		uid: item.userId,
@@ -20,6 +27,7 @@ export function mapOne(item, key) {
 		avatar: <Link to={`/user/${item.userId}`}><Avatar icon={<Image src={item.avatar} preview={false} />} /></Link>,
 		content: <Output data={item.content} />,
 		images: images,
+		likes: likes
 	}
 }
 export function mapData(data) {

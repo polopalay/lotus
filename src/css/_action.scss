@@ -1,5 +1,5 @@
 .action-icon {
-  color: $color-mute;
+  color: map-get($spacers, mute);
   font-size: map-get($spacers, 4) !important;
   margin-right: 30px !important;
 }

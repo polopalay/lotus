@@ -1,5 +1,7 @@
 @each $name, $prop in (w: width, h: height) {
   @each $size, $length in $sizes {
-    .#{$prop}-#{$size} { #{$prop}: $length !important; } 
+    .#{$prop}-#{$size} {
+      #{$prop}: $length !important;
+    }
   }
 }

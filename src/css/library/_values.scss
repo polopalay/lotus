@@ -1,6 +1,20 @@
 $spacer: 1rem !default;
-$spacers: ( 0: 0, 1: ( $spacer * 0.25,), 2: ( $spacer * 0.5,), 3: $spacer, 4: ( $spacer * 1.5,), 5: ( $spacer * 3), auto: auto);
+$spacers: ( 0: 0, 1: ( $spacer * 0.25,), 2: ( $spacer * 0.5,), 3: $spacer, 4: ( $spacer * 1.5,), 5: ( $spacer * 3,), auto: auto,);
 
-$sizes: (25: 25%, 50: 50%, 75: 75%, 100: 100%, auto: auto);
+$sizes: ( 25: 25%, 50: 50%, 75: 75%, 100: 100%, auto: auto,);
 
-$color-mute: #6c757d !important;
+$colors: (
+  mute: #6c757d,
+  red: #f5222d,
+  volcano: #d4380d,
+  corange: #fa8c16,
+  gold: #faad14,
+  yellow: #fadb14,
+  lime: #a0d911,
+  green: #52c41a,
+  cyan: #13c2c2,
+  blue: #1890ff,
+  dblue: #2f54eb,
+  purple: #722ed1,
+  magenta: #eb2f96,
+);
