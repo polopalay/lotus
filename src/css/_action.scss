@@ -1,10 +1,10 @@
 .action-icon {
   color: $color-mute;
-  font-size: nth($sizes, 5) !important;
+  font-size: map-get($spacers, 4) !important;
   margin-right: 30px !important;
 }
 .author-name {
-  font-size: nth($sizes, 4) !important;
+  font-size: map-get($spacers, 3) !important;
   color: black !important;
 }
 .cover-img {

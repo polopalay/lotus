@@ -1,4 +1,6 @@
-$sizes: 0, 0.25rem, 0.5rem, 1rem, 1.5rem, 3rem;
-$percents: 25, 50, 75, 100;
+$spacer: 1rem !default;
+$spacers: ( 0: 0, 1: ( $spacer * 0.25,), 2: ( $spacer * 0.5,), 3: $spacer, 4: ( $spacer * 1.5,), 5: ( $spacer * 3), auto: auto);
+
+$sizes: (25: 25%, 50: 50%, 75: 75%, 100: 100%, auto: auto);
 
 $color-mute: #6c757d !important;
