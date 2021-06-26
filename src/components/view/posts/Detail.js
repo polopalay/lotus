@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {Comment, Row, Col, Card, Image, Popconfirm, message, List} from 'antd';
+import {Comment, Row, Col, Card, Image, Popconfirm, message, List, Carousel} from 'antd';
 import {DeleteOutlined} from "@ant-design/icons";
 import {getRow, addRow, deleteRow, getRowByParrentId} from '../../../firebase/database'
 import {uploadFileFromString} from '../../../firebase/storage';
 import {deleteFile} from '../../../firebase/storage';
 import {mapOne, mapData} from '../../../helper/mapper'
-import Editor from '../../layout/Editor'
+import Editor from '../../tool/Editor'
 
 class Detail extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class Detail extends Component {
       author: this.props.app.user.displayName,
       avatar: this.props.app.user.photoURL,
       content: data.comment,
-      date:new Date().toDateString()
+      date: new Date().toDateString()
     }
     let key = addRow('/comments/', comment)
     data.images.forEach(img => {
@@ -62,14 +62,20 @@ class Detail extends Component {
           <Card>
             <Row>
               <Col span={24} justify="center">
-                <Comment author={post.author} avatar={post.avatar} content={post.content} datetime={post.date} />
-                <Row justify='center'>
-                  <Col span={12}>
-                    <Image.PreviewGroup>
-                      {post.images.map(img => <Image width={img.size} src={img.link} />)}
-                    </Image.PreviewGroup>
-                  </Col>
-                </Row>
+                <Comment author={post.author} avatar={post.avatar} content={
+                  <>
+                    {post.content}
+                    <Row justify='center'>
+                      <Col span={20}>
+                        <Image.PreviewGroup>
+                          <Carousel className>
+                            {post.images.map(img => <div className='cover-img'><Image width='100%' src={img.link} /></div>)}
+                          </Carousel>
+                        </Image.PreviewGroup>
+                      </Col>
+                    </Row>
+                  </>
+                } datetime={post.date} />
               </Col>
             </Row>
             <Row>
@@ -84,18 +90,24 @@ class Detail extends Component {
                         let canDelete = isWriter || props.uid === this.props.app.user.uid
                         return <List.Item key={Math.random()}>
                           <Col span={24} justify="center">
-                            <Comment {...props} datetime={canDelete &&
+                            <Comment author={props.author} avatar={props.avatar} content={
+                              <>
+                                {props.content}
+                                <Row justify='center'>
+                                  <Col span={20}>
+                                    <Image.PreviewGroup>
+                                      <Carousel className>
+                                        {props.images.map(img => <div className='cover-img'><Image width='100%' src={img.link} /></div>)}
+                                      </Carousel>
+                                    </Image.PreviewGroup>
+                                  </Col>
+                                </Row>
+                              </>
+                            } datetime={canDelete &&
                               <Popconfirm title="Bạn có muốn xoá bài viết này không?" onConfirm={() => this.deleteComment(props.key, props.images)} okText="Có" cancelText="Không" >
                                 <DeleteOutlined />
                               </Popconfirm>
                             } />
-                            <Row justify='center'>
-                              <Col span={12}>
-                                <Image.PreviewGroup>
-                                  {props.images.map(img => <Image width={img.size} src={img.link} />)}
-                                </Image.PreviewGroup>
-                              </Col>
-                            </Row>
                           </Col>
                         </List.Item>
                       }

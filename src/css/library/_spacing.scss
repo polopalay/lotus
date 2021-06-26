@@ -1,0 +1,134 @@
+@for $i from 1 through length($sizes) {
+  $size: nth($sizes, $i);
+  .m-#{$i - 1} {
+    margin: $size !important;
+  }
+}
+@for $i from 1 through length($sizes) {
+  $size: nth($sizes, $i);
+  .mx-#{$i - 1} {
+    margin-left: $size !important;
+    margin-right: $size !important;
+  }
+}
+@for $i from 1 through length($sizes) {
+  $size: nth($sizes, $i);
+  .my-#{$i - 1} {
+    margin-top: $size !important;
+    margin-bottom: $size !important;
+  }
+}
+@for $i from 1 through length($sizes) {
+  $size: nth($sizes, $i);
+  .mt-#{$i - 1} {
+    margin-top: $size !important;
+  }
+}
+@for $i from 1 through length($sizes) {
+  $size: nth($sizes, $i);
+  .mr-#{$i - 1} {
+    margin-right: $size !important;
+  }
+}
+@for $i from 1 through length($sizes) {
+  $size: nth($sizes, $i);
+  .mb-#{$i - 1} {
+    margin-bottom: $size !important;
+  }
+}
+@for $i from 1 through length($sizes) {
+  $size: nth($sizes, $i);
+  .ml-#{$i - 1} {
+    margin-left: $size !important;
+  }
+}
+.m-auto {
+  margin: auto !important;
+}
+.mx-auto {
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+.my-auto {
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+}
+.mt-auto {
+  margin-top: auto !important;
+}
+.mr-auto {
+  margin-right: auto !important;
+}
+.mb-auto {
+  margin-bottom: auto !important;
+}
+.ml-auto {
+  margin-left: auto !important;
+}
+@for $i from 1 through length($sizes) {
+  $size: nth($sizes, $i);
+  .p-#{$i - 1} {
+    padding: $size !important;
+  }
+}
+@for $i from 1 through length($sizes) {
+  $size: nth($sizes, $i);
+  .px-#{$i - 1} {
+    padding-left: $size !important;
+    padding-right: $size !important;
+  }
+}
+@for $i from 1 through length($sizes) {
+  $size: nth($sizes, $i);
+  .py-#{$i - 1} {
+    padding-top: $size !important;
+    padding-bottom: $size !important;
+  }
+}
+@for $i from 1 through length($sizes) {
+  $size: nth($sizes, $i);
+  .pt-#{$i - 1} {
+    padding-top: $size !important;
+  }
+}
+@for $i from 1 through length($sizes) {
+  $size: nth($sizes, $i);
+  .pr-#{$i - 1} {
+    padding-right: $size !important;
+  }
+}
+@for $i from 1 through length($sizes) {
+  $size: nth($sizes, $i);
+  .pb-#{$i - 1} {
+    padding-bottom: $size !important;
+  }
+}
+@for $i from 1 through length($sizes) {
+  $size: nth($sizes, $i);
+  .pl-#{$i - 1} {
+    padding-left: $size !important;
+  }
+}
+.p-auto {
+  padding: auto !important;
+}
+.px-auto {
+  padding-right: auto !important;
+  padding-left: auto !important;
+}
+.py-auto {
+  padding-top: auto !important;
+  padding-bottom: auto !important;
+}
+.pt-auto {
+  padding-top: auto !important;
+}
+.pr-auto {
+  padding-right: auto !important;
+}
+.pb-auto {
+  padding-bottom: auto !important;
+}
+.pl-auto {
+  padding-left: auto !important;
+}

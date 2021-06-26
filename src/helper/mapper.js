@@ -12,15 +12,6 @@ export function mapOne(item, key) {
 			images.push(img)
 		}
 	}
-	images.forEach(img => {
-		if (images.length === 1) {
-			img.size = '100%'
-		} else if (images.length > 1 && images.length <= 4) {
-			img.size = '50%'
-		} else if (images.length > 4) {
-			img.size = '33.33%'
-		}
-	})
 	return {
 		key: key,
 		uid: item.userId,

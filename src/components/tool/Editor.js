@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import EditorJs from 'react-editor-js';
-import {Comment, Card, Image, Row, Col} from 'antd';
+import {Comment, Card, Image, Row, Col, Carousel} from 'antd';
 import {FileImageOutlined, SendOutlined} from "@ant-design/icons";
-import './editor.css';
 
 export default class Editor extends Component {
 	constructor(props) {
@@ -36,15 +35,6 @@ export default class Editor extends Component {
 		if (this.state.images.length < 9) {
 			let images = this.state.images;
 			images.push({id: Date.now(), src: rs.target.result})
-			images.forEach(img => {
-				if (images.length === 1) {
-					img.size = '100%'
-				} else if (images.length > 1 && images.length <= 4) {
-					img.size = '50%'
-				} else if (images.length > 4) {
-					img.size = '33.33%'
-				}
-			})
 			this.setState({images: images})
 		}
 	}
@@ -62,15 +52,15 @@ export default class Editor extends Component {
 					<EditorJs onChange={this.handleChange} instanceRef={this.reference} />
 				</div>
 				<Row justify='center'>
-					<Col span={12}>
+					<Col span={20}>
 						<Image.PreviewGroup>
-							{
-								this.state.images.map(img => <Image width={img.size} src={img.src} />)
-							}
+							<Carousel className>
+								{this.state.images.map(img => <div className='cover-img'><Image width='100%' src={img.src} /></div>)}
+							</Carousel>
 						</Image.PreviewGroup>
 					</Col>
 				</Row>
-				<input type="file" id={`uploader${this.props.id}`} accept="image/png, image/gif, image/jpeg" onChange={this.upload} hidden />
+				<input type="file" id={`uploader${this.props.id}`} accept="image/png, image/gif, image/jpeg" onChange={this.upload} hidden multiple />
 			</Card>
 		)
 	}

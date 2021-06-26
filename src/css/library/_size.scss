@@ -1,0 +1,16 @@
+@each $percent in $percents {
+  .w-#{$percent} {
+    width: percentage($percent / 100) !important;
+  }
+}
+@each $percent in $percents {
+  .h-#{$percent} {
+    height: percentage($percent / 100) !important;
+  }
+}
+.w-auto {
+  width: auto !important;
+}
+.h-auto {
+  height: auto !important;
+}

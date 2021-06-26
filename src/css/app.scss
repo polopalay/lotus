@@ -1,0 +1,13 @@
+@import  './library/values','./library/spacing','./library/size','./editor','./action', './setting';
+
+* {
+	padding: 0;
+	margin: 0;
+	outline: none;
+	box-sizing: border-box;
+}
+.app {
+	min-height: 100vh !important;
+	justify-content: space-between !important;
+}
+

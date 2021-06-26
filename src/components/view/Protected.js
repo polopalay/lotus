@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Redirect, Route, Switch} from "react-router-dom";
-import NotFound from './NotFound';
 import Posts from './posts/Posts'
 import Detail from './posts/Detail'
 import Setting from './user/Setting'
@@ -13,7 +12,6 @@ class Routing extends Component {
 			<Route exact path='/user/:uid' component={Posts} />
 			<Route exact path='/detail/:id' component={Detail} />
 			<Route exact path='/setting' component={Setting} />
-			<Route component={NotFound} />
 		</Switch>
 	}
 }

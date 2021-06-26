@@ -3,9 +3,9 @@ import {connect} from "react-redux";
 import {Row, Col, List} from "antd";
 import {DownOutlined} from "@ant-design/icons";
 import Post from "./Post";
-import Editor from "../../layout/Editor";
+import Editor from "../../tool/Editor";
 import {uploadFileFromString} from "../../../firebase/storage";
-import {getRowFromLast, addRow, getRowByUserId, getRowFromLastOneTime, getRowByUserIdOneTime} from "../../../firebase/database";
+import {addRow, getRowFromLastOneTime, getRowByUserIdOneTime} from "../../../firebase/database";
 import {mapData} from "../../../helper/mapper";
 
 class Posts extends Component {

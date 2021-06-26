@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
-import {Comment, Row, Col, Card, Image, Popconfirm, message} from 'antd';
+import {Comment, Row, Col, Card, Image, Popconfirm, Carousel, message} from 'antd';
 import {DeleteOutlined, CommentOutlined, FireOutlined} from "@ant-design/icons";
 import {getRowByParrentId, deleteRow} from '../../../firebase/database'
 import {deleteFile} from '../../../firebase/storage';
@@ -35,7 +35,16 @@ class Post extends Component {
             <Row>
               <Col span={24} justify="center">
                 <Comment author={<p className='author-name'>{post.author}</p>} avatar={post.avatar}
-                  content={post.content} datetime={post.date} actions={[
+                  content={
+                    <>
+                      {post.content}
+                      <Image.PreviewGroup>
+                        <Carousel className>
+                          {post.images.map(img => <div className='cover-img'><Image width='100%' src={img.link} /></div>)}
+                        </Carousel>
+                      </Image.PreviewGroup>
+                    </>
+                  } datetime={post.date} actions={[
                     <FireOutlined className='action-icon' />,
                     <Link to={`/detail/${post.key}`}><CommentOutlined className='action-icon' /></Link>,
                     <>
@@ -46,13 +55,6 @@ class Post extends Component {
                       }
                     </>,
                   ]} />
-                <Row justify='center'>
-                  <Col span={12}>
-                    <Image.PreviewGroup>
-                      {post.images.map(img => <Image width={img.size} src={img.link} />)}
-                    </Image.PreviewGroup>
-                  </Col>
-                </Row>
               </Col>
             </Row>
           </Card>
