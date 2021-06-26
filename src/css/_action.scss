@@ -1,7 +1,9 @@
 .action-icon {
   color: map-get($spacers, mute);
   font-size: map-get($spacers, 4) !important;
-  margin-right: 30px !important;
+}
+.number-like-action {
+  line-height: 23px;
 }
 .author-name {
   font-size: map-get($spacers, 3) !important;

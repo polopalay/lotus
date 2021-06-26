@@ -10,7 +10,7 @@ import {mapOne} from '../../../helper/mapper'
 class Post extends Component {
   constructor(props) {
     super(props);
-    this.state = {comments: [], post: {}, loading: true}
+    this.state = {comments: [], post: null, loading: true}
   }
   componentDidMount() {
     getRow(`/posts/${this.props.data}`, rs => {
@@ -46,47 +46,41 @@ class Post extends Component {
   }
   render() {
     let post = this.state.post
-    if (!this.state.loading) {
-      if (post) {
-        let uid = this.props.app.user.uid
-        let isWriter = uid === post.uid
-        let liked = post.likes.includes(uid)
-        return (
-          <Row justify="center" className='mb-4'>
-            <Col xl={10} lg={14} md={18} sm={22} xs={24}>
-              <Card actions={[]}>
-                <Row>
-                  <Col span={24} justify="center">
-                    <Comment author={<p className='author-name'>{post.author}</p>} avatar={post.avatar}
-                      content={
-                        <>
-                          {post.content}
-                          <Image.PreviewGroup>
-                            <Carousel className>
-                              {post.images.map(img => <div className='cover-img'><Image width='100%' src={img.link} /></div>)}
-                            </Carousel>
-                          </Image.PreviewGroup>
-                        </>
-                      } datetime={post.date} actions={[
-                        <CaretUpOutlined className={`action-icon ${liked && "text-volcano"}`} onClick={() => this.vote(post)} />,
-                        <Link to={`/detail/${post.key}`}><CommentOutlined className='action-icon text-mute' /></Link>,
-                        <>
-                          {isWriter &&
-                            <Popconfirm title="Bạn có muốn xoá bài viết này không?" onConfirm={this.delete} okText="Có" cancelText="Không" >
-                              <DeleteOutlined className='action-icon' />
-                            </Popconfirm>
-                          }
-                        </>,
-                      ]} />
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-          </Row>
-        );
-      } else {
-        return '';
-      }
+    if (this.state.post) {
+      let uid = this.props.app.user.uid
+      let isWriter = uid === post.uid
+      let liked = post.likes.includes(uid)
+      let actions = [
+        <div className='flex-center'><CaretUpOutlined className={`action-icon mr-1 ${liked && "text-volcano"}`} 
+        onClick={() => this.vote(post)} />{<p className='number-like-action'>{post.likes.length}</p>}</div>,
+        <Link to={`/detail/${post.key}`}><CommentOutlined className='action-icon text-mute' /></Link>,
+      ]
+      isWriter && actions.push(
+        <Popconfirm title="Bạn có muốn xoá bài viết này không?" onConfirm={this.delete} okText="Có" cancelText="Không" >
+          <DeleteOutlined className='action-icon' />
+        </Popconfirm>)
+      return (
+        <Row justify="center" className='mb-4'>
+          <Col xl={10} lg={14} md={18} sm={22} xs={24}>
+            <Card actions={actions} title={
+              <Comment author={<p className='author-name'>{post.author}</p>} avatar={post.avatar} datetime={post.date} />
+            }>
+              <Row>
+                <Col span={24} justify="center">
+                  <>
+                    {post.content}
+                    <Image.PreviewGroup>
+                      <Carousel className>
+                        {post.images.map(img => <div className='cover-img'><Image width='100%' src={img.link} /></div>)}
+                      </Carousel>
+                    </Image.PreviewGroup>
+                  </>
+                </Col>
+              </Row>
+            </Card>
+          </Col>
+        </Row>
+      );
     } else {
       return <LoadingOutlined />;
     }
