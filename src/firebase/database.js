@@ -2,7 +2,10 @@ import 'firebase/database';
 import firebase from './firebase'
 
 const database = firebase.database();
-
+export async function getRowOneTimeAsync(ref) {
+    let rs = await database.ref(ref).once('value');
+    return rs.val();
+}
 export function getRowOneTime(ref, action) {
     database.ref(ref).once('value').then(rs => action(rs.val()))
 }

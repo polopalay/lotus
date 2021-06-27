@@ -8,7 +8,7 @@ import InlineCode from '@editorjs/inline-code';
 import ListTool from '@editorjs/list';
 import Delimiter from '@editorjs/delimiter'
 import Warning from '@editorjs/warning'
-import {Comment, Card, Image, Row, Col, Carousel} from 'antd';
+import {Comment, Card, Image} from 'antd';
 import {uploadFileFromStringAsync} from '../../firebase/storage';
 import {FileImageOutlined, SendOutlined} from "@ant-design/icons";
 import {toBase64} from '../../helper/mapper';
@@ -28,11 +28,11 @@ export default class Editor extends Component {
 			for (let i = 0; i < blocks.length; i++) {
 				const block = blocks[i];
 				if (base64regex.test(block.data.file.url.replace(/^data:image\/[a-z]+;base64,/, ""))) {
-					const rs = await uploadFileFromStringAsync(`/temp2/${Date.now()}`, block.data.file.url);
+					const rs = await uploadFileFromStringAsync(`/images/${Date.now()}`, block.data.file.url);
 					block.data.file.url = rs.url
 				}
 			}
-			this.props.submit({comment: content, images: []})
+			this.props.submit({comment: content})
 			this.state.editor.clear();
 		}
 	}
@@ -77,7 +77,7 @@ export default class Editor extends Component {
 			>
 				<Comment author={<p className='author-name'>{user.displayName}</p>} avatar={<Image src={user.photoURL} preview={false} />} />
 				<div className='editor-container border mb-2'>
-					<EditorJs onChange={this.handleChange} tools={tools} logLevel='ERROR' onReady={editor => this.setState({editor: editor})} />
+					<EditorJs onChange={this.handleChange} tools={tools} logLevel='WARN' onReady={editor => this.setState({editor: editor})} />
 				</div>
 			</Card>
 		)

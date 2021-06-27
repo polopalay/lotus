@@ -35,7 +35,13 @@ export function uploadFileFromString(path, string, action) {
         }
     })
 }
-
 export function deleteFile(path) {
     storage.ref(path).delete().catch(error => console.log(error));
+}
+export function deleteByUrl(urls) {
+    urls.forEach(url => {
+        url = url.replace('https://firebasestorage.googleapis.com/v0/b/data-492da.appspot.com/o/images%2F', '')
+        url = url.split('?')
+        storage.ref(`/images/${url[0]}`).delete()
+    })
 }

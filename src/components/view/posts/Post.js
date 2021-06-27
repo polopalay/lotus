@@ -1,16 +1,17 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
-import {Comment, Row, Col, Card, Image, Popconfirm, Carousel, message} from 'antd';
+import {Comment, Row, Col, Card, Popconfirm, message} from 'antd';
 import {DeleteOutlined, CommentOutlined, CaretUpOutlined, LoadingOutlined} from "@ant-design/icons";
-import {getRowByParrentId, getRowByParrentIdOneTime, getRow, deleteRow, addRow} from '../../../firebase/database'
-import {deleteFile} from '../../../firebase/storage';
+import {getRowOneTimeAsync, getRowByParrentIdOneTime, getRow, deleteRow, addRow} from '../../../firebase/database'
+import {deleteByUrl} from '../../../firebase/storage';
 import {mapOne} from '../../../helper/mapper'
 
 class Post extends Component {
   constructor(props) {
     super(props);
     this.state = {comments: [], post: null, loading: true}
+    this.delete = this.delete.bind(this)
   }
   componentDidMount() {
     getRow(`/posts/${this.props.data}`, rs => {
@@ -19,12 +20,13 @@ class Post extends Component {
       }
     })
   }
-  delete = () => {
+  async delete() {
     let parrentId = this.props.data
+    let rs = await getRowOneTimeAsync(`/posts/${parrentId}`)
+    let images = rs.content.blocks.filter(item => item.type === 'image').map(item => item.data.file.url).filter(item => item.includes('firebasestorage.googleapis.com'));
+    deleteByUrl(images);
     deleteRow('/posts/', parrentId, () => {
-      let images = this.state.post.images;
-      images.forEach(image => deleteFile(image.src))
-      getRowByParrentId('/comments/', 'postId', parrentId, rs => {
+      getRowByParrentIdOneTime('/comments/', 'postId', parrentId, rs => {
         for (let key in rs) {
           deleteRow('/comments/', key)
         }
@@ -67,14 +69,7 @@ class Post extends Component {
             }>
               <Row>
                 <Col span={24} justify="center">
-                  <>
-                    {post.content}
-                    <Image.PreviewGroup>
-                      <Carousel className>
-                        {post.images.map(img => <div className='cover-img' key={img.link}><Image width='100%' src={img.link} /></div>)}
-                      </Carousel>
-                    </Image.PreviewGroup>
-                  </>
+                  {post.content}
                 </Col>
               </Row>
             </Card>

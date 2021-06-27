@@ -4,13 +4,13 @@ import {Row, Col, List} from "antd";
 import {DownOutlined} from "@ant-design/icons";
 import Post from "./Post";
 import Editor from "../../tool/Editor";
-import {uploadFileFromString} from "../../../firebase/storage";
 import {addRow, getRowFromLastOneTime, getRowByParrentIdFromLastOneTime} from "../../../firebase/database";
 
 class Posts extends Component {
   constructor(props) {
     super(props);
     this.state = {posts: [], number: 5};
+    this.submit = this.submit.bind(this);
   }
   componentDidMount() {
     this.load();
@@ -42,7 +42,7 @@ class Posts extends Component {
     }
     return keys;
   }
-  submit = (data) => {
+  async submit(data) {
     let post = {
       userId: this.props.app.user.uid,
       author: this.props.app.user.displayName,
@@ -50,17 +50,8 @@ class Posts extends Component {
       content: data.comment,
       date: new Date().toDateString()
     };
-    let key = addRow("/posts/", post, () => {
-      this.load();
-      data.images.forEach((img) => {
-        let link = `/image-posts/${img.id}.png`;
-        uploadFileFromString(link, img.src, (data) => {
-          addRow(`/posts/${key}/images/`, {src: link, link: data})
-          this.load();
-        }
-        );
-      });
-    });
+    addRow("/posts/", post);
+    this.load()
   };
   render() {
     return (

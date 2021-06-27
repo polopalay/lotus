@@ -3,15 +3,6 @@ import {Link} from 'react-router-dom'
 import {Image, Avatar} from 'antd'
 
 export function mapOne(item, key) {
-	let images = []
-	let imgs = item.images
-	if (imgs) {
-		for (let keyImg in imgs) {
-			let img = imgs[keyImg];
-			img.id = keyImg;
-			images.push(img)
-		}
-	}
 	let likes = []
 	let lks = item.likes;
 	if (lks) {
@@ -26,7 +17,6 @@ export function mapOne(item, key) {
 		author: item.author,
 		avatar: <Link to={`/user/${item.userId}`}><Avatar icon={<Image src={item.avatar} preview={false} />} /></Link>,
 		content: <Output data={item.content} />,
-		images: images,
 		likes: likes
 	}
 }
