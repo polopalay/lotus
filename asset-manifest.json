@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/lotus/static/css/main.6a238e5d.chunk.css",
-    "main.js": "/lotus/static/js/main.a940744e.chunk.js",
-    "main.js.map": "/lotus/static/js/main.a940744e.chunk.js.map",
+    "main.css": "/lotus/static/css/main.55a81c0a.chunk.css",
+    "main.js": "/lotus/static/js/main.90c20c7c.chunk.js",
+    "main.js.map": "/lotus/static/js/main.90c20c7c.chunk.js.map",
     "runtime-main.js": "/lotus/static/js/runtime-main.eddc83e2.js",
     "runtime-main.js.map": "/lotus/static/js/runtime-main.eddc83e2.js.map",
     "static/css/2.b4e56faa.chunk.css": "/lotus/static/css/2.b4e56faa.chunk.css",
-    "static/js/2.2ebbd3fe.chunk.js": "/lotus/static/js/2.2ebbd3fe.chunk.js",
-    "static/js/2.2ebbd3fe.chunk.js.map": "/lotus/static/js/2.2ebbd3fe.chunk.js.map",
+    "static/js/2.f89fd88d.chunk.js": "/lotus/static/js/2.f89fd88d.chunk.js",
+    "static/js/2.f89fd88d.chunk.js.map": "/lotus/static/js/2.f89fd88d.chunk.js.map",
     "index.html": "/lotus/index.html",
     "static/css/2.b4e56faa.chunk.css.map": "/lotus/static/css/2.b4e56faa.chunk.css.map",
-    "static/css/main.6a238e5d.chunk.css.map": "/lotus/static/css/main.6a238e5d.chunk.css.map",
-    "static/js/2.2ebbd3fe.chunk.js.LICENSE.txt": "/lotus/static/js/2.2ebbd3fe.chunk.js.LICENSE.txt",
+    "static/css/main.55a81c0a.chunk.css.map": "/lotus/static/css/main.55a81c0a.chunk.css.map",
+    "static/js/2.f89fd88d.chunk.js.LICENSE.txt": "/lotus/static/js/2.f89fd88d.chunk.js.LICENSE.txt",
     "static/media/lotus.3d5db4fb.png": "/lotus/static/media/lotus.3d5db4fb.png",
     "static/media/user.b326dd92.png": "/lotus/static/media/user.b326dd92.png"
   },
   "entrypoints": [
     "static/js/runtime-main.eddc83e2.js",
     "static/css/2.b4e56faa.chunk.css",
-    "static/js/2.2ebbd3fe.chunk.js",
-    "static/css/main.6a238e5d.chunk.css",
-    "static/js/main.a940744e.chunk.js"
+    "static/js/2.f89fd88d.chunk.js",
+    "static/css/main.55a81c0a.chunk.css",
+    "static/js/main.90c20c7c.chunk.js"
   ]
 }
