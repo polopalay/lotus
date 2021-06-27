@@ -59,23 +59,23 @@ class Detail extends Component {
     return (
       <Row justify="center" className='mb-4'>
         <Col xl={16} lg={18} md={20} sm={22} xs={24}>
-          <Card>
+          <Card title={
+            <Comment author={post.author} avatar={post.avatar} datetime={post.date} />
+          }>
             <Row>
               <Col span={24} justify="center">
-                <Comment author={post.author} avatar={post.avatar} content={
-                  <>
-                    {post.content}
-                    <Row justify='center'>
-                      <Col span={20}>
-                        <Image.PreviewGroup>
-                          <Carousel className>
-                            {post.images.map(img => <div className='cover-img'><Image width='100%' src={img.link} /></div>)}
-                          </Carousel>
-                        </Image.PreviewGroup>
-                      </Col>
-                    </Row>
-                  </>
-                } datetime={post.date} />
+                <>
+                  {post.content}
+                  <Row justify='center' className='mb-3'>
+                    <Col span={20}>
+                      <Image.PreviewGroup>
+                        <Carousel className>
+                          {post.images.map(img => <div className='cover-img'><Image width='100%' src={img.link} /></div>)}
+                        </Carousel>
+                      </Image.PreviewGroup>
+                    </Col>
+                  </Row>
+                </>
               </Col>
             </Row>
             <Row>

@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import {Menu, PageHeader, Dropdown, Avatar, Image, Typography} from 'antd';
-import {SettingOutlined, LogoutOutlined, LoginOutlined,HomeOutlined} from "@ant-design/icons";
+import {SettingOutlined, LogoutOutlined, LoginOutlined, HomeOutlined} from "@ant-design/icons";
 import lotus from '../../img/lotus.png'
 import userImg from '../../img/user.png'
 
@@ -52,8 +52,8 @@ class Header extends Component {
     );
     return (
       <PageHeader className="p-0 m-0" title={<Image width={45} height={45} src={lotus} preview={false} />}
-        subTitle={<Typography.Text strong><Link className='text-volcano' to='/'>Home</Link></Typography.Text>}
-        extra={[<Typography.Text strong>{username}</Typography.Text>,
+        subTitle={<Typography.Text key='home' strong><Link className='text-volcano' to='/'>Home</Link></Typography.Text>}
+        extra={[<Typography.Text key='username' strong>{username}</Typography.Text>,
           dropdown]} />
     );
   }

@@ -51,12 +51,12 @@ class Post extends Component {
       let isWriter = uid === post.uid
       let liked = post.likes.includes(uid)
       let actions = [
-        <div className='flex-center'><CaretUpOutlined className={`action-icon mr-1 ${liked && "text-volcano"}`} 
-        onClick={() => this.vote(post)} />{<p className='number-like-action'>{post.likes.length}</p>}</div>,
-        <Link to={`/detail/${post.key}`}><CommentOutlined className='action-icon text-mute' /></Link>,
+        <div className='flex-center' key='like'><CaretUpOutlined className={`action-icon mr-1 ${liked && "text-volcano"}`}
+          onClick={() => this.vote(post)} />{<p className='number-like-action'>{post.likes.length}</p>}</div>,
+        <Link to={`/detail/${post.key}`} key='comments'><CommentOutlined className='action-icon text-mute' /></Link>,
       ]
       isWriter && actions.push(
-        <Popconfirm title="Bạn có muốn xoá bài viết này không?" onConfirm={this.delete} okText="Có" cancelText="Không" >
+        <Popconfirm title="Bạn có muốn xoá bài viết này không?" onConfirm={this.delete} okText="Có" cancelText="Không" key='delete'>
           <DeleteOutlined className='action-icon' />
         </Popconfirm>)
       return (
@@ -71,7 +71,7 @@ class Post extends Component {
                     {post.content}
                     <Image.PreviewGroup>
                       <Carousel className>
-                        {post.images.map(img => <div className='cover-img'><Image width='100%' src={img.link} /></div>)}
+                        {post.images.map(img => <div className='cover-img' key={img.link}><Image width='100%' src={img.link} /></div>)}
                       </Carousel>
                     </Image.PreviewGroup>
                   </>

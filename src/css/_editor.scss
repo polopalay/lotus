@@ -7,7 +7,10 @@
 			max-width: 100%;
 		}
 	}
-	.ce-toolbar {
-		display: none;
+	*{
+		box-sizing: unset !important;
 	}
+	//.ce-toolbar {
+		//display: none;
+	//}
 }
