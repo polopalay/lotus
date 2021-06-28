@@ -7,18 +7,20 @@ import Marker from '@editorjs/marker';
 import InlineCode from '@editorjs/inline-code';
 import ListTool from '@editorjs/list';
 import Delimiter from '@editorjs/delimiter'
-import Warning from '@editorjs/warning'
 import {Comment, Card, Image} from 'antd';
 import {uploadFileFromStringAsync} from '../../firebase/storage';
-import {FileImageOutlined, SendOutlined} from "@ant-design/icons";
+import {ClearOutlined, SendOutlined} from "@ant-design/icons";
 import {toBase64} from '../../helper/mapper';
 
 export default class Editor extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {editor: null}
+		this.state = {editor: null, mounted: false}
 		this.uploadByFile = this.uploadByFile.bind(this);
 		this.submit = this.submit.bind(this);
+	}
+	componentDidMount() {
+		this.setState({mounted: true})
 	}
 	async submit() {
 		if (this.props.submit) {
@@ -56,7 +58,6 @@ export default class Editor extends Component {
 	render() {
 		const user = this.props.user;
 		const tools = {
-			warning: Warning,
 			delimiter: Delimiter,
 			paragraph: {class: Paragraph, inlineToolbar: true},
 			quote: Quote,
@@ -72,12 +73,12 @@ export default class Editor extends Component {
 			<Card
 				actions={[
 					<SendOutlined key='send' onClick={this.submit} className='action-icon' />,
-					<FileImageOutlined key='img' className='action-icon' />,
+					<ClearOutlined key='img' className='action-icon' onClick={() => this.state.editor.clear()} />,
 				]}
 			>
 				<Comment author={<p className='author-name'>{user.displayName}</p>} avatar={<Image src={user.photoURL} preview={false} />} />
 				<div className='editor-container border mb-2'>
-					<EditorJs onChange={this.handleChange} tools={tools} logLevel='WARN' onReady={editor => this.setState({editor: editor})} />
+					<EditorJs onChange={this.handleChange} tools={tools} logLevel='INFO' onReady={editor => this.state.mounted && this.setState({editor: editor})} />
 				</div>
 			</Card>
 		)

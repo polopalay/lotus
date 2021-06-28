@@ -23,12 +23,16 @@ class Post extends Component {
   async delete() {
     let parrentId = this.props.data
     let rs = await getRowOneTimeAsync(`/posts/${parrentId}`)
-    let images = rs.content.blocks.filter(item => item.type === 'image').map(item => item.data.file.url).filter(item => item.includes('firebasestorage.googleapis.com'));
+    let images = rs.content.blocks.filter(item => item.type === 'image').map(item => item.data.file.url)
+      .filter(item => item.includes('firebasestorage.googleapis.com'));
     deleteByUrl(images);
     deleteRow('/posts/', parrentId, () => {
-      getRowByParrentIdOneTime('/comments/', 'postId', parrentId, rs => {
-        for (let key in rs) {
+      getRowByParrentIdOneTime('/comments/', 'postId', parrentId, comments => {
+        for (let key in comments) {
           deleteRow('/comments/', key)
+          let imgs = comments[key].content.blocks.filter(item => item.type === 'image').map(item => item.data.file.url)
+            .filter(item => item.includes('firebasestorage.googleapis.com'));
+          deleteByUrl(imgs);
         }
       })
       this.props.load()

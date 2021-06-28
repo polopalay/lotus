@@ -17,6 +17,7 @@ export function mapOne(item, key) {
 		author: item.author,
 		avatar: <Link to={`/user/${item.userId}`}><Avatar icon={<Image src={item.avatar} preview={false} />} /></Link>,
 		content: <Output data={item.content} />,
+		rawContent: item.content,
 		likes: likes
 	}
 }

@@ -19,7 +19,7 @@ class Header extends Component {
       <Menu>
         {this.props.app.user ?
           <>
-            <Menu.Item icon={<HomeOutlined />} key="menu-setting">
+            <Menu.Item icon={<HomeOutlined />} key="menu-home">
               <Link to={`/user/${this.props.app.user.uid}`}>Trang cá nhân</Link>
             </Menu.Item>
             <Menu.Item icon={<SettingOutlined />} key="menu-setting">
