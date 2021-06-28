@@ -3,8 +3,8 @@ import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import {Menu, PageHeader, Dropdown, Avatar, Image, Typography} from 'antd';
 import {SettingOutlined, LogoutOutlined, LoginOutlined, HomeOutlined} from "@ant-design/icons";
-import lotus from '../../img/lotus.png'
-import userImg from '../../img/user.png'
+import lotus from '../../services/img/lotus.png'
+import userImg from '../../services/img/user.png'
 
 class Header extends Component {
   render() {

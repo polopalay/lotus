@@ -3,9 +3,9 @@ import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import {Comment, Row, Col, Card, Popconfirm, message} from 'antd';
 import {DeleteOutlined, CommentOutlined, CaretUpOutlined, LoadingOutlined} from "@ant-design/icons";
-import {getRowOneTimeAsync, getRowByParrentIdOneTime, getRow, deleteRow, addRow} from '../../../firebase/database'
-import {deleteByUrl} from '../../../firebase/storage';
-import {mapOne} from '../../../helper/mapper'
+import {getRowOneTimeAsync, getRowByParrentIdOneTime, getRow, deleteRow, addRow} from '../../../services/firebase/database'
+import {deleteByUrl} from '../../../services/firebase/storage';
+import {mapOne} from '../../../services/helper/mapper'
 
 class Post extends Component {
   constructor(props) {

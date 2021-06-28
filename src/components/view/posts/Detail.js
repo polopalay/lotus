@@ -2,9 +2,9 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Comment, Row, Col, Card, Popconfirm, message, List} from 'antd';
 import {DeleteOutlined} from "@ant-design/icons";
-import {getRow, addRow, deleteRow, getRowByParrentId} from '../../../firebase/database'
-import {deleteByUrl} from '../../../firebase/storage';
-import {mapOne, mapData} from '../../../helper/mapper'
+import {getRow, addRow, deleteRow, getRowByParrentId} from '../../../services/firebase/database'
+import {deleteByUrl} from '../../../services/firebase/storage';
+import {mapOne, mapData} from '../../../services/helper/mapper'
 import Editor from '../../tool/Editor'
 
 class Detail extends Component {
@@ -12,7 +12,7 @@ class Detail extends Component {
     super(props);
     this.state = {post: {}, comments: [], loading: true}
   }
-  isMount=false;
+  isMount = false;
   componentDidMount() {
     let id = this.props.match.params.id
     getRow(`/posts/${id}`, rs => {
@@ -76,7 +76,8 @@ class Detail extends Component {
                           <Col span={24} justify="center">
                             <Comment author={props.author} avatar={props.avatar} content={props.content}
                               datetime={canDelete &&
-                                <Popconfirm title="Bạn có muốn xoá bài viết này không?" onConfirm={() => this.deleteComment(props.key, props.rawContent)} okText="Có" cancelText="Không" >
+                                <Popconfirm title="Bạn có muốn xoá bài viết này không?" onConfirm={() => this.deleteComment(props.key, props.rawContent)}
+                                  okText="Có" cancelText="Không" >
                                   <DeleteOutlined />
                                 </Popconfirm>
                               } />

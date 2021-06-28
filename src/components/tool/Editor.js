@@ -1,26 +1,26 @@
 import React, {Component} from "react";
-import EditorJs from 'react-editor-js';
-import Paragraph from '@editorjs/paragraph';
-import ImageTool from '@editorjs/image';
-import Quote from '@editorjs/quote';
-import Marker from '@editorjs/marker';
-import InlineCode from '@editorjs/inline-code';
-import ListTool from '@editorjs/list';
-import Delimiter from '@editorjs/delimiter'
+//import EditorJs from 'react-editor-js';
+import EditorJS from '@editorjs/editorjs';
 import {Comment, Card, Image} from 'antd';
-import {uploadFileFromStringAsync} from '../../firebase/storage';
+import {uploadFileFromStringAsync} from '../../services/firebase/storage';
 import {ClearOutlined, SendOutlined} from "@ant-design/icons";
-import {toBase64} from '../../helper/mapper';
+import {toBase64} from '../../services/helper/mapper';
+import {editorTools} from './editorTools';
 
 export default class Editor extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {editor: null, mounted: false}
+		this.state = {editor: null}
 		this.uploadByFile = this.uploadByFile.bind(this);
 		this.submit = this.submit.bind(this);
 	}
 	componentDidMount() {
-		this.setState({mounted: true})
+		const editor = new EditorJS({
+			holder: this.props.id,
+			logLevel: 'ERROR',
+			tools: editorTools(this.uploadByFile, this.uploadByUrl)
+		});
+		this.setState({editor: editor})
 	}
 	async submit() {
 		if (this.props.submit) {
@@ -57,18 +57,6 @@ export default class Editor extends Component {
 	}
 	render() {
 		const user = this.props.user;
-		const tools = {
-			delimiter: Delimiter,
-			paragraph: {class: Paragraph, inlineToolbar: true},
-			quote: Quote,
-			marker: Marker,
-			inlineCode: InlineCode,
-			list: ListTool,
-			image: {
-				class: ImageTool,
-				config: {uploader: {uploadByFile: this.uploadByFile, uploadByUrl: this.uploadByUrl}}
-			}
-		}
 		return (
 			<Card
 				actions={[
@@ -77,8 +65,7 @@ export default class Editor extends Component {
 				]}
 			>
 				<Comment author={<p className='author-name'>{user.displayName}</p>} avatar={<Image src={user.photoURL} preview={false} />} />
-				<div className='editor-container border mb-2'>
-					<EditorJs onChange={this.handleChange} tools={tools} logLevel='INFO' onReady={editor => this.state.mounted && this.setState({editor: editor})} />
+				<div className='editor-container border mb-2' id={this.props.id}>
 				</div>
 			</Card>
 		)

@@ -3,9 +3,9 @@ import {connect} from "react-redux";
 import store from '../../../store';
 import {setUser} from '../../../reducers/app/app.action'
 import {Tabs, Avatar, Card, Image, Col, Row, Form, Input, Button, Upload, message} from 'antd'
-import {getRowByParrentIdOneTimeAsync, editRow} from '../../../firebase/database';
-import {updateDisplayName, updatePhotoUrl, getCurrentUser} from '../../../firebase/auth'
-import {uploadFileAsync} from '../../../firebase/storage'
+import {getRowByParrentIdOneTimeAsync, editRow} from '../../../services/firebase/database';
+import {updateDisplayName, updatePhotoUrl, getCurrentUser} from '../../../services/firebase/auth'
+import {uploadFileAsync} from '../../../services/firebase/storage'
 class Setting extends Component {
   constructor(props) {
     super(props);

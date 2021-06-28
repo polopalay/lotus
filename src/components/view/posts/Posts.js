@@ -4,7 +4,7 @@ import {Row, Col, List} from "antd";
 import {DownOutlined} from "@ant-design/icons";
 import Post from "./Post";
 import Editor from "../../tool/Editor";
-import {addRow, getRowFromLastOneTime, getRowByParrentIdFromLastOneTime} from "../../../firebase/database";
+import {addRow, getRowFromLastOneTime, getRowByParrentIdFromLastOneTime} from "../../../services/firebase/database";
 
 class Posts extends Component {
   constructor(props) {
@@ -58,7 +58,7 @@ class Posts extends Component {
       <>
         <Row justify="center" className="mb-4">
           <Col xl={10} lg={14} md={18} sm={22} xs={24}>
-            <Editor key={Math.random()} user={this.props.app.user} initValue={this.state.comment} submit={this.submit} />
+            <Editor key={Math.random()} user={this.props.app.user}  submit={this.submit} id='post-edtior'/>
           </Col>
         </Row>
         <List
