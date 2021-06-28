@@ -3,36 +3,38 @@ import {connect} from "react-redux";
 import store from '../../../store';
 import {setUser} from '../../../reducers/app/app.action'
 import {Tabs, Avatar, Card, Image, Col, Row, Form, Input, Button, Upload, message} from 'antd'
-import {getRowByParrentId, editRow} from '../../../firebase/database';
+import {getRowByParrentIdOneTimeAsync, editRow} from '../../../firebase/database';
 import {updateDisplayName, updatePhotoUrl, getCurrentUser} from '../../../firebase/auth'
-import {uploadFile} from '../../../firebase/storage'
+import {uploadFileAsync} from '../../../firebase/storage'
 class Setting extends Component {
-  finish = (event) => {
-    getRowByParrentId('/posts/', 'userId', this.props.app.user.uid, rs => {
-      for (let key in rs) {
-        let post = rs[key];
-        post.author = event.username;
-        editRow('/posts/', key, post, null);
-      }
-    })
+  constructor(props) {
+    super(props);
+    this.finish = this.finish.bind(this);
+    this.upLoadFile = this.upLoadFile.bind(this);
+  }
+  async finish(event) {
+    let rs = await getRowByParrentIdOneTimeAsync('/posts/', 'userId', this.props.app.user.uid)
+    for (let key in rs) {
+      let post = rs[key];
+      post.author = event.username;
+      editRow('/posts/', key, post, null);
+    }
     updateDisplayName(event.username, () => {
       store.dispatch(setUser(getCurrentUser()))
       message.success('Cập nhật thành công');
     })
   }
-  upLoadFile = (file) => {
-    uploadFile(`/avatar/${this.props.app.user.uid}.png`, file, (rs) => {
-      getRowByParrentId('/posts/', 'userId', this.props.app.user.uid, result => {
-        for (let key in result) {
-          let post = result[key];
-          post.avatar = rs;
-          editRow('/posts/', key, post, null);
-        }
-      })
-      updatePhotoUrl(rs, () => {
-        store.dispatch(setUser(getCurrentUser()))
-        message.success('Cập nhật thành công');
-      })
+  async upLoadFile(file) {
+    let rs = await uploadFileAsync(`/avatar/${this.props.app.user.uid}.png`, file)
+    let result = await getRowByParrentIdOneTimeAsync('/posts/', 'userId', this.props.app.user.uid)
+    for (let key in result) {
+      let post = result[key];
+      post.avatar = rs.url;
+      editRow('/posts/', key, post, null);
+    }
+    updatePhotoUrl(rs.url, () => {
+      store.dispatch(setUser(getCurrentUser()))
+      message.success('Cập nhật thành công');
     })
   }
   render() {

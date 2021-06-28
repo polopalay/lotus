@@ -24,6 +24,10 @@ export function getRowFromLast(ref, number, action) {
 export function getRowByParrentIdFromLastOneTime(ref, number, name, id, action) {
     database.ref(ref).orderByChild(name).equalTo(id).limitToLast(number).once('value').then(rs => action && action(rs.val()))
 }
+export async function getRowByParrentIdOneTimeAsync(ref, name, id) {
+    let rs = await database.ref(ref).orderByChild(name).equalTo(id).once('value')
+    return rs.val();
+}
 export function getRowByParrentIdOneTime(ref, name, id, action) {
     database.ref(ref).orderByChild(name).equalTo(id).once('value').then(rs => action && action(rs.val()))
 }
