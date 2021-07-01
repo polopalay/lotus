@@ -9,6 +9,9 @@ export async function getRowOneTimeAsync(ref) {
 export function getRowOneTime(ref, action) {
     database.ref(ref).once('value').then(rs => action(rs.val()))
 }
+export function getChild(ref, child, action) {
+    database.ref(ref).child(child).on('value', rs => action(rs.val()))
+}
 export function getRow(ref, action) {
     database.ref(ref).on('value', rs => action(rs.val()))
 }

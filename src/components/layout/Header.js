@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import {Menu, PageHeader, Dropdown, Avatar, Image, Typography} from 'antd';
 import {SettingOutlined, LogoutOutlined, LoginOutlined, HomeOutlined} from "@ant-design/icons";
+import Notification from "./Notification";
 import lotus from '../../services/img/lotus.png'
 import userImg from '../../services/img/user.png'
 
@@ -30,31 +31,22 @@ class Header extends Component {
             </Menu.Item>
           </>
           :
-          <Menu.Item icon={<LoginOutlined />} key="menu-setting">
+          <Menu.Item icon={<LoginOutlined />} key="menu-login">
             <Link to='/login'>Đăng nhập</Link>
           </Menu.Item>
         }
       </Menu>
     );
-    const dropdown = (
-      <Dropdown overlay={menu} placement="topRight" key="header-dropdown">
-        <Avatar
-          className="dropdown-toggle mt-2"
-          shape="square"
-          size={45}
-          icon={<Image src={avatar} preview={false} />}
-          id="dropdownMenuButton"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        />
+    const dropdown1 = (
+      <Dropdown overlay={menu} placement="bottomCenter" key="avatar">
+        <Avatar shape="square" size={45} icon={<Image src={avatar} preview={false} />} />
       </Dropdown>
     );
+    const dropdown2 = <Typography.Text strong key='username'>{username}</Typography.Text>;
     return (
-      <PageHeader className="p-0 m-0" title={<Image width={45} height={45} src={lotus} preview={false} />}
+      <PageHeader className="p-0 my-0" title={<Image width={45} height={45} src={lotus} preview={false} />}
         subTitle={<Typography.Text key='home' strong><Link className='text-volcano' to='/'>Home</Link></Typography.Text>}
-        extra={[<Typography.Text key='username' strong>{username}</Typography.Text>,
-          dropdown]} />
+        extra={[<Notification key='notification' />, dropdown2, dropdown1]} />
     );
   }
 }

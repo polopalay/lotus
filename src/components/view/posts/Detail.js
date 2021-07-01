@@ -12,7 +12,6 @@ class Detail extends Component {
     super(props);
     this.state = {post: {}, comments: [], loading: true}
   }
-  isMount = false;
   componentDidMount() {
     let id = this.props.match.params.id
     getRow(`/posts/${id}`, rs => {
@@ -34,6 +33,13 @@ class Detail extends Component {
       date: new Date().toDateString()
     }
     addRow('/comments/', comment)
+    if (this.state.post.uid !== this.props.app.user.uid) {
+      let notification = {
+        postId: this.props.match.params.id,
+        message: `${this.props.app.user.displayName} đã bình luận vào bài viết của bạn`
+      }
+      addRow(`/notification/${this.state.post.uid}`, notification)
+    }
   }
   delete = () => {
     deleteRow('/posts/', this.props.data.key);

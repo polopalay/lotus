@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-//import EditorJs from 'react-editor-js';
 import EditorJS from '@editorjs/editorjs';
 import {Comment, Card, Image} from 'antd';
 import {uploadFileFromStringAsync} from '../../services/firebase/storage';

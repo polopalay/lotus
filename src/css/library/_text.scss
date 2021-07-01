@@ -3,3 +3,9 @@
     color: $color !important;
   }
 }
+@each $name,$size in  $fsizes{
+  .fs-#{$name}{font-size: $size !important;}  
+}
+@each $name,$size in  $spacers{
+  .lh-#{$name}{line-height: $size !important;}  
+}

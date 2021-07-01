@@ -4,3 +4,9 @@ export const setUser = (data) => {
         type: "SET_USER",
     };
 };
+export const setNotification = (data) => {
+    return {
+        data: data,
+        type: "SET_NOTIFICATION",
+    };
+};
