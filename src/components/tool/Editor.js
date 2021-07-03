@@ -29,7 +29,7 @@ export default class Editor extends Component {
 			for (let i = 0; i < blocks.length; i++) {
 				const block = blocks[i];
 				if (base64regex.test(block.data.file.url.replace(/^data:image\/[a-z]+;base64,/, ""))) {
-					const rs = await uploadFileFromStringAsync(`/images/${Date.now()}`, block.data.file.url);
+					const rs = await uploadFileFromStringAsync(`/images/${Date.now()}.png`, block.data.file.url);
 					block.data.file.url = rs.url
 				}
 			}

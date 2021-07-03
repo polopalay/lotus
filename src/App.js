@@ -1,23 +1,40 @@
 import "./css/app.scss";
 import "antd/dist/antd.css";
-import React, { Component } from "react";
-import { HashRouter, Route, Switch } from "react-router-dom";
-import { onUserStateChange } from "./services/firebase/auth";
-import { setUser } from "./reducers/app/app.action";
-import { Provider } from "react-redux";
-import { Layout } from "antd";
+import React, {Component} from "react";
+import {HashRouter, Route, Switch} from "react-router-dom";
+import {onUserStateChange} from "./services/firebase/auth";
+import {setUser} from "./reducers/app/app.action";
+import {Provider} from "react-redux";
+import {Layout} from "antd";
 import Header from "./components/layout/Header";
 import Routing from "./components/Routing";
 import Login from "./components/view/user/Login";
 import Logout from "./components/view/user/Logout";
 import AccessDenied from "./components/layout/AccessDenied";
+import {getChild} from './services/firebase/database'
+import {setNotification} from './reducers/app/app.action'
 import store from "./store";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  //constructor(props) {
+    //super(props);
+  //}
+  componentDidMount() {
     onUserStateChange((user) => {
       store.dispatch(setUser(user));
+      if (user) {
+        getChild(`/notification/`, user.uid, data => {
+          if (data) {
+            let noti = [];
+            for (let key in data) {
+              let mss = data[key]
+              mss.key = key
+              noti.push(mss);
+            }
+            store.dispatch(setNotification(noti));
+          }
+        })
+      }
     });
   }
   render() {
@@ -25,10 +42,7 @@ class App extends Component {
       <Provider store={store}>
         <HashRouter>
           <Layout className="app">
-            <Layout.Header
-              className="px-3"
-              style={{ backgroundColor: "white" }}
-            >
+            <Layout.Header className="px-3" style={{backgroundColor: "white"}}>
               <Header />
             </Layout.Header>
             <Layout.Content className="p-3">

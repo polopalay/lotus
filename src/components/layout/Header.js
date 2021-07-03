@@ -2,8 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import {Menu, PageHeader, Dropdown, Avatar, Image, Typography} from 'antd';
-import {SettingOutlined, LogoutOutlined, LoginOutlined, HomeOutlined} from "@ant-design/icons";
-import Notification from "./Notification";
+import {SettingOutlined, LogoutOutlined, LoginOutlined, HomeOutlined, BellOutlined} from "@ant-design/icons";
 import lotus from '../../services/img/lotus.png'
 import userImg from '../../services/img/user.png'
 
@@ -43,10 +42,24 @@ class Header extends Component {
       </Dropdown>
     );
     const dropdown2 = <Typography.Text strong key='username'>{username}</Typography.Text>;
+    const notification = (
+      <Dropdown overlay={
+        <Menu>
+          {this.props.app.notification.map(item =>
+            <Menu.Item key={`notification${item.key}`}>
+              <Link to={`/detail/${item.postId}`}>{item.message}</Link>
+            </Menu.Item>
+          )}
+        </Menu>
+      } placement="bottomCenter" key='notification'>
+        <BellOutlined className='fs-3 pt-2' />
+      </Dropdown>
+    )
+
     return (
       <PageHeader className="p-0 my-0" title={<Image width={45} height={45} src={lotus} preview={false} />}
         subTitle={<Typography.Text key='home' strong><Link className='text-volcano' to='/'>Home</Link></Typography.Text>}
-        extra={[<Notification key='notification' />, dropdown2, dropdown1]} />
+        extra={[notification, dropdown2, dropdown1]} />
     );
   }
 }

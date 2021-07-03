@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Comment, Row, Col, Card, Popconfirm, message, List} from 'antd';
 import {DeleteOutlined} from "@ant-design/icons";
-import {getRow, addRow, deleteRow, getRowByParrentId} from '../../../services/firebase/database'
+import {getRow, addRow, getRowByParrentIdOneTimeAsync, deleteRow, getRowByParrentId} from '../../../services/firebase/database'
 import {deleteByUrl} from '../../../services/firebase/storage';
 import {mapOne, mapData} from '../../../services/helper/mapper'
 import Editor from '../../tool/Editor'
@@ -11,6 +11,7 @@ class Detail extends Component {
   constructor(props) {
     super(props);
     this.state = {post: {}, comments: [], loading: true}
+    this.submit = this.submit.bind(this);
   }
   componentDidMount() {
     let id = this.props.match.params.id
@@ -23,7 +24,7 @@ class Detail extends Component {
       this.setState({comments: mapData(rs)})
     })
   }
-  submit = (data) => {
+  async submit(data) {
     let comment = {
       postId: this.props.match.params.id,
       userId: this.props.app.user.uid,
@@ -34,7 +35,10 @@ class Detail extends Component {
     }
     addRow('/comments/', comment)
     if (this.state.post.uid !== this.props.app.user.uid) {
+      let rs = await getRowByParrentIdOneTimeAsync(`/notification/${this.state.post.uid}`, 'postsId', this.props.app.user.uid)
+      console.log(rs)
       let notification = {
+        uid: this.props.app.user.uid,
         postId: this.props.match.params.id,
         message: `${this.props.app.user.displayName} đã bình luận vào bài viết của bạn`
       }
